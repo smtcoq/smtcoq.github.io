@@ -30,17 +30,17 @@
         <h2>
 <a id="presentation" class="anchor" href="#presentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Presentation</h2>
 
-<p>SMTCoq is a Coq plugin that checks proof witnesses coming from external SAT and SMT solvers. It provides:</p>
+<p>SMTCoq is a <a href="http://coq.inria.fr">Coq</a> plugin that checks proof witnesses coming from external SAT and SMT solvers. It provides:</p>
 
 <ul>
-<li>a certified checker for proof witnesses coming from the SAT solver zChaff and the SMT solver veriT. This checker increases the confidence in these tools by checking their answers a posteriori and allows to import new theroems proved by these solvers in Coq;</li>
-<li>decision procedures through new tactics named verit, that calls veriT on any Coq goal, and zchaff, that calls zChaff on any Coq goal.</li>
+<li>a certified checker for proof witnesses coming from the SAT solver <a href="http://www.princeton.edu/%7Echaff/zchaff.html">ZChaff</a> and the SMT solver <a href="http://www.verit-solver.org">veriT</a>. This checker increases the confidence in these tools by checking their answers a posteriori and allows to import new theroems proved by these solvers in Coq;</li>
+<li>decision procedures through new tactics that discharge some Coq goals to ZChaff and veriT.</li>
 </ul>
 
 <h2>
-<a id="sources-and-use" class="anchor" href="#sources-and-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sources and use</h2>
+<a id="installation-and-use" class="anchor" href="#installation-and-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation and use</h2>
 
-<p>SMTCoq is freely available on <a href="https://github.com/smtcoq/smtcoq">GitHub</a>. A <a href="https://github.com/ekiciburak/smtcoq">new branch</a> incorporates also the SMT solver CVC4.</p>
+<p>SMTCoq is freely available as an <a href="https://coq.inria.fr/opam/www/">opam package</a> and on <a href="https://github.com/smtcoq/smtcoq">GitHub</a>. A <a href="https://github.com/ekiciburak/smtcoq">branch in progress</a> incorporates also the SMT solver CVC4.</p>
 
 <p>SMTCoq is distributed under the CeCILL-C license.</p>
 
@@ -79,7 +79,19 @@
 <h2>
 <a id="publications" class="anchor" href="#publications" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publications</h2>
 
-<p>In progress</p>
+<h3>
+<a id="reference" class="anchor" href="#reference" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reference</h3>
+
+<p><a href="http://hal.inria.fr/docs/00/63/91/30/PDF/cpp11.pdf">A Modular Integration of SAT/SMT Solvers to Coq through Proof Witnesses</a>, Armand, Michaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Thery, Laurent; Werner, Benjamin, <a href="http://formes.asia/cpp">CPP - Certified Programs and Proofs - First International Conference - 2011</a>.</p>
+
+<h3>
+<a id="other-publications" class="anchor" href="#other-publications" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other publications</h3>
+
+<ol>
+<li>TODO</li>
+<li>
+<a href="http://hal.inria.fr/docs/00/61/40/41/PDF/ArmandAl.pdf">Verifying SAT and SMT in Coq for a fully automated decision procedure</a>, Armand, Mickaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Théry, Laurent; Wener, Benjamin, <a href="http://www.lix.polytechnique.fr/%7Elengrand/Events/PSATTT11">PSATTT - International Workshop on Proof-Search in Axiomatic Theories and Type Theories</a> - 2011.</li>
+</ol>
       </section>
     </div>
 
