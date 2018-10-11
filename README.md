@@ -11,8 +11,10 @@ SMTCoq is distributed under the CeCILL-C license.
 ## People
 ### Current team
 * [Clark Barrett](http://www.cs.nyu.edu/~barrett) (Stanford University)
-* [Valentin Blot](https://valentinblot.org/pro) (Université Paris-Sud)
+* [Valentin Blot](https://valentinblot.org/pro) (Université Paris-Sud, Université Paris-Diderot)
+* Amina Bousalem (Université Paris-Sud)
 * [Burak Ekici](http://ekiciburak.github.io/) (The University of Iowa)
+* Quentin Garchery (Université Paris-Sud, Inria)
 * [Benjamin Grégoire](https://www-sop.inria.fr/members/Benjamin.Gregoire/) (Inria Sophia Antipolis)
 * [Guy Katz](http://stanford.edu/~guyk) (Stanford University)
 * [Chantal Keller](https://www.lri.fr/~keller/index-en.html) (Université Paris-Sud)
