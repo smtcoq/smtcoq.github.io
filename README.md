@@ -10,6 +10,7 @@ Various branches include new features:
 * [plug-in with the CVC4 SMT solver](https://github.com/smtcoq/smtcoq/tree/lfsc)
 * [quantified lemmas (use-case with veriT)](https://github.com/QGarchery/smtcoq-1)
 * [conversions between representations of integers](https://github.com/aminsk/smtcoq)
+
 They will be merged in a realease to come in November 2018.
 
 SMTCoq is distributed under the CeCILL-C license.
