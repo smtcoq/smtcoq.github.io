@@ -6,12 +6,13 @@ SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming
 ## Installation and use
 SMTCoq is freely available as an [opam package](https://coq.inria.fr/opam/www/) and on [GitHub](https://github.com/smtcoq/smtcoq).
 
-Various branches include new features:
-* [plug-in with the CVC4 SMT solver](https://github.com/smtcoq/smtcoq/tree/lfsc)
-* [quantified lemmas (use-case with veriT)](https://github.com/QGarchery/smtcoq-1)
-* [conversions between representations of integers](https://github.com/aminsk/smtcoq)
+To use the CVC4 SMT solver, you must download the [lfsc branch](https://github.com/smtcoq/smtcoq/tree/lfsc).
 
-They will be merged in a realease to come in November 2018.
+New:
+* the verit tactic now has support for quantifiers: see the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
+* tactics `nat_convert`, `pos_convert` and `N_convert` now allow to reason about other types of integers: see also the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
+
+These three features will be merged in a realease to come in November 2018.
 
 SMTCoq is distributed under the CeCILL-C license.
 
