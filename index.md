@@ -9,7 +9,7 @@ SMTCoq is freely available as an [opam package](https://coq.inria.fr/opam/www/) 
 To use the CVC4 SMT solver, you must download the [lfsc branch](https://github.com/smtcoq/smtcoq/tree/lfsc).
 
 New:
-* the verit tactic now has support for quantifiers: see the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
+* the `verit` tactic now has support for quantifiers: see the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
 * tactics `nat_convert`, `pos_convert` and `N_convert` now allow to reason about other types of integers: see also the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
 
 These three features will be merged in a realease to come in November 2018.
