@@ -12,7 +12,7 @@ New:
 * the `verit` tactic now has support for quantifiers: see the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
 * tactics `nat_convert`, `pos_convert` and `N_convert` now allow to reason about other types of integers: see also the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
 
-These three features will be merged in a realease to come in November 2018.
+These three features will be merged in a realease to come in December 2018.
 
 SMTCoq is distributed under the CeCILL-C license.
 
