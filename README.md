@@ -6,7 +6,42 @@ SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming
 ## Installation and use
 SMTCoq is freely available on [GitHub](https://github.com/smtcoq/smtcoq). It is currently availaible for coq-8.6 (and native-coq) but a release with recent versions of Coq will be available soon (together with an opam package).
 
+See [the examples](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) to see how to use SMTCoq.
+
 SMTCoq is distributed under the CeCILL-C license.
+
+## Example
+Here is a very small example of the possibilities of SMTCoq: automatic proofs in group theory.
+
+```coq
+Section group.
+  Variable op : Z -> Z -> Z.
+  Variable inv : Z -> Z.
+  Variable e : Z.
+
+  Hypothesis associative :
+    forall a b c : Z, op a (op b c) =? op (op a b) c.
+  Hypothesis identity :
+    forall a : Z, (op e a =? a) && (op a e =? a).
+  Hypothesis inverse :
+    forall a : Z, (op a (inv a) =? e) && (op (inv a) a =? e).
+  Add_lemmas associative identity inverse.
+
+  Lemma unique_identity e':
+    (forall z, op e' z =? z) -> e' =? e.
+  Proof. intros pe'. verit_bool_base pe'; vauto. Qed.
+
+  Lemma simplification_right x1 x2 y:
+      op x1 y =? op x2 y -> x1 =? x2.
+  Proof. intro H. verit_bool_base H; vauto. Qed.
+
+  Lemma simplification_left x1 x2 y:
+      op y x1 =? op y x2 -> x1 =? x2.
+  Proof. intro H. verit_bool_base H; vauto. Qed.
+
+  Clear_lemmas.
+End group.
+```
 
 ## People
 ### Current team
