@@ -1,18 +1,10 @@
 ## Presentation
 SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming from external SAT and SMT solvers. It provides:
 * a certified checker for proof witnesses coming from the SAT solver [ZChaff](http://www.princeton.edu/~chaff/zchaff.html) and the SMT solvers [veriT](http://www.verit-solver.org) and [CVC4](http://cvc4.cs.stanford.edu/web). This checker increases the confidence in these tools by checking their answers a posteriori and allows to import new theroems proved by these solvers in Coq;
-* decision procedures through new tactics that discharge some Coq goals to ZChaff, veriT and CVC4.
+* decision procedures through new tactics that discharge some Coq goals to ZChaff, veriT, CVC4, and their combination.
 
 ## Installation and use
-SMTCoq is freely available as an [opam package](https://coq.inria.fr/opam/www/) and on [GitHub](https://github.com/smtcoq/smtcoq).
-
-To use the CVC4 SMT solver, you must download the [lfsc branch](https://github.com/smtcoq/smtcoq/tree/lfsc).
-
-New:
-* the `verit` tactic now has support for quantifiers: see the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
-* tactics `nat_convert`, `pos_convert` and `N_convert` now allow to reason about other types of integers: see also the end of [this file](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) for examples
-
-These three features will be merged in a realease to come in December 2018.
+SMTCoq is freely available on [GitHub](https://github.com/smtcoq/smtcoq). It is currently availaible for coq-8.6 (and native-coq) but a release with recent versions of Coq will be available soon (together with an opam package).
 
 SMTCoq is distributed under the CeCILL-C license.
 
@@ -45,3 +37,4 @@ SMTCoq is distributed under the CeCILL-C license.
 1. [SMTCoq: A plug-in for integrating SMT solvers into Coq (Tool Paper)](http://homepage.divms.uiowa.edu/~tinelli/papers/EkiEtAl-CAV-17.pdf), Ekici, Burak; Mebsout, Alain; Tinelli, Cesare; Keller, Chantal; Katz, Guy; Reynolds, Andrew; Barrett, Clark, [CAV - International Conference on Computer Aided Verification](http://cavconference.org/2017) - 2017.
 2. [Extending SMTCoq, a Certified Checker for SMT (Extended Abstract)](https://hal.inria.fr/hal-01388984/document), Ekici, Burak; Katz, Guy; Keller, Chantal; Mebsout, Alain; Reynolds, Andrew; Tinelli, Cesare, [HaTT - on Hammers for Type Theories - First International Workshop](https://hatt2016.inria.fr) - 2016.
 3. [Verifying SAT and SMT in Coq for a fully automated decision procedure](http://hal.inria.fr/docs/00/61/40/41/PDF/ArmandAl.pdf), Armand, Mickaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Théry, Laurent; Wener, Benjamin, [PSATTT - International Workshop on Proof-Search in Axiomatic Theories and Type Theories](http://www.lix.polytechnique.fr/~lengrand/Events/PSATTT11) - 2011.
+4. SMTCoq : automatisation expressive et extensible dans Coq, Blot, Valentin; Bousalem, Amina; Garchery, Quentin; Keller, Chantal, [JFLA - Journées Francophones des Langages Applicatifs](http://dpt-info.u-strasbg.fr/~magaud/JFLA2019) - 2019.
