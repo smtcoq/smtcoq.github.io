@@ -15,29 +15,26 @@ Here is a very small example of the possibilities of SMTCoq: automatic proofs in
 
 ```coq
 Section group.
-  Variable op : Z -> Z -> Z.
-  Variable inv : Z -> Z.
-  Variable e : Z.
+  Variable e : Z, inv : Z -> Z, op : Z -> Z -> Z.
 
   Hypothesis associative :
-    forall a b c : Z, op a (op b c) =? op (op a b) c.
-  Hypothesis identity :
-    forall a : Z, (op e a =? a) && (op a e =? a).
-  Hypothesis inverse :
-    forall a : Z, (op a (inv a) =? e) && (op (inv a) a =? e).
+    forall a b c, op a (op b c) = op (op a b) c.
+  Hypothesis identity : forall a, (op e a = a).
+  Hypothesis inverse : forall a, (op (inv a) a = e).
+
   Add_lemmas associative identity inverse.
 
+  Lemma identity' :
+    forall a, (op a e = a).
+  Proof. smt. Qed.
+
+  Lemma inverse' :
+    forall a, (op a (inv a) = e).
+  Proof. smt. Qed.
+
   Lemma unique_identity e':
-    (forall z, op e' z =? z) -> e' =? e.
-  Proof. intros pe'. verit_bool_base pe'; vauto. Qed.
-
-  Lemma simplification_right x1 x2 y:
-      op x1 y =? op x2 y -> x1 =? x2.
-  Proof. intro H. verit_bool_base H; vauto. Qed.
-
-  Lemma simplification_left x1 x2 y:
-      op y x1 =? op y x2 -> x1 =? x2.
-  Proof. intro H. verit_bool_base H; vauto. Qed.
+    (forall z, op e' z = z) -> e' = e.
+  Proof. intros pe'; smt pe'. Qed.
 
   Clear_lemmas.
 End group.
@@ -64,6 +61,7 @@ End group.
 * Tianyi Liang (The University of Iowa)
 * [Benjamin Werner](http://www.lix.polytechnique.fr/Labo/Benjamin.Werner) (École polytechnique)
 
+
 ## Publications
 ### Reference
 [A Modular Integration of SAT/SMT Solvers to Coq through Proof Witnesses](http://hal.inria.fr/docs/00/63/91/30/PDF/cpp11.pdf), Armand, Michaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Thery, Laurent; Werner, Benjamin, [CPP - Certified Programs and Proofs - First International Conference - 2011](http://formes.asia/cpp).
@@ -73,3 +71,7 @@ End group.
 2. [Extending SMTCoq, a Certified Checker for SMT (Extended Abstract)](https://hal.inria.fr/hal-01388984/document), Ekici, Burak; Katz, Guy; Keller, Chantal; Mebsout, Alain; Reynolds, Andrew; Tinelli, Cesare, [HaTT - on Hammers for Type Theories - First International Workshop](https://hatt2016.inria.fr) - 2016.
 3. [Verifying SAT and SMT in Coq for a fully automated decision procedure](http://hal.inria.fr/docs/00/61/40/41/PDF/ArmandAl.pdf), Armand, Mickaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Théry, Laurent; Wener, Benjamin, [PSATTT - International Workshop on Proof-Search in Axiomatic Theories and Type Theories](http://www.lix.polytechnique.fr/~lengrand/Events/PSATTT11) - 2011.
 4. SMTCoq : automatisation expressive et extensible dans Coq, Blot, Valentin; Bousalem, Amina; Garchery, Quentin; Keller, Chantal, [JFLA - Journées Francophones des Langages Applicatifs](http://dpt-info.u-strasbg.fr/~magaud/JFLA2019) - 2019.
+
+
+## Talk
+[Overview of SMTCoq (February, 2019)](documents/overview_19-02-11.pdf)
