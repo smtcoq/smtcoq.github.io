@@ -4,7 +4,7 @@ SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming
 * decision procedures through new tactics that discharge some Coq goals to ZChaff, veriT, CVC4, and their combination.
 
 ## Installation and use
-SMTCoq is freely available on [GitHub](https://github.com/smtcoq/smtcoq). It is currently availaible for coq-8.6 (and native-coq) but a release with recent versions of Coq will be available soon (together with an opam package).
+SMTCoq is freely available on [GitHub](https://github.com/smtcoq/smtcoq). It is currently availaible for Coq-8.8 (and native-coq) but a release for Coq-8.9 will be available soon (together with an opam package).
 
 See [the examples](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) to see how to use SMTCoq.
 
