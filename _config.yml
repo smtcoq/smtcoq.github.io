@@ -1,5 +1,5 @@
 title: SMTCoq
-description: 
+description: Communication between Coq and SAT/SMT solvers
 google_analytics: 
 show_downloads: false
 theme: jekyll-theme-slate
