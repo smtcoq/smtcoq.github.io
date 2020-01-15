@@ -1,12 +1,14 @@
+# SMTCoq
+
 ## Presentation
 SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming from external SAT and SMT solvers. It provides:
 * a certified checker for proof witnesses coming from the SAT solver [ZChaff](http://www.princeton.edu/~chaff/zchaff.html) and the SMT solvers [veriT](http://www.verit-solver.org) and [CVC4](http://cvc4.cs.stanford.edu/web). This checker increases the confidence in these tools by checking their answers a posteriori and allows to import new theroems proved by these solvers in Coq;
 * decision procedures through new tactics that discharge some Coq goals to ZChaff, veriT, CVC4, and their combination.
 
 ## Installation and use
-SMTCoq is freely available on [GitHub](https://github.com/smtcoq/smtcoq). It is currently availaible for Coq-8.9 (and native-coq). A release together with an opam package will be available soon.
+SMTCoq is freely available as an [https://coq.inria.fr/opam/extra-dev/packages/coq-smtcoq](opam package) and on [GitHub](https://github.com/smtcoq/smtcoq). See the [https://github.com/smtcoq/smtcoq/blob/master/INSTALL.md](INSTALL.md) file for instructions on how to install SMTCoq and the supported provers.
 
-See [the examples](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) to see how to use SMTCoq.
+See [the examples](https://github.com/smtcoq/smtcoq/blob/master/examples/Example.v) to see how to use SMTCoq. More details are given in the [https://github.com/smtcoq/smtcoq/blob/master/USE.md](USE.md) file.
 
 SMTCoq is distributed under the CeCILL-C license.
 
@@ -14,6 +16,8 @@ SMTCoq is distributed under the CeCILL-C license.
 Here is a very small example of the possibilities of SMTCoq: automatic proofs in group theory.
 
 ```coq
+Require Import SMTCoq.
+
 Section group.
   Variable e : Z, inv : Z -> Z, op : Z -> Z -> Z.
 
@@ -39,6 +43,13 @@ Section group.
   Clear_lemmas.
 End group.
 ```
+
+## Want to participate?
+
+SMTCoq is an ambitious, collaborative project: everyone is welcome!
+There are many and varied enhancement to do. You can have a look at the
+[task list](https://github.com/smtcoq/smtcoq/issues/40) or propose your
+own improvements!
 
 ## People
 ### Current team
@@ -74,4 +85,4 @@ End group.
 
 
 ## Talk
-[Overview of SMTCoq (February, 2019)](documents/overview_19-02-11.pdf)
+[Overview of SMTCoq (February, 2019)](https://github.com/smtcoq/smtcoq.github.io/blob/master/documents/overview_19-02-11.pdf)
