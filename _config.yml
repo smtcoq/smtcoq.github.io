@@ -6,3 +6,6 @@ theme: jekyll-theme-slate
 
 gems:
   - jekyll-mentions
+
+github:
+  repository_url: https://github.com/smtcoq/smtcoq
