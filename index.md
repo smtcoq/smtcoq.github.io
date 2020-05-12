@@ -12,6 +12,12 @@ See [the examples](https://github.com/smtcoq/smtcoq/blob/master/examples/Example
 
 SMTCoq is distributed under the CeCILL-C license.
 
+## Community
+If you have any question or remark, you are invited to join the
+[SMTCoq forum](https://framateam.org/smtcoq).
+
+Bugs can be reported o [github](https://github.com/smtcoq/smtcoq/issues).
+
 ## Example
 Here is a very small example of the possibilities of SMTCoq: automatic proofs in group theory.
 
