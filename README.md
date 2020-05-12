@@ -16,7 +16,7 @@ SMTCoq is distributed under the CeCILL-C license.
 If you have any question or remark, you are invited to join the
 [SMTCoq forum](https://framateam.org/smtcoq).
 
-Bugs can be reported o [github](https://github.com/smtcoq/smtcoq/issues).
+Bugs can be reported on [github](https://github.com/smtcoq/smtcoq/issues).
 
 ## Example
 Here is a very small example of the possibilities of SMTCoq: automatic proofs in group theory.
@@ -57,9 +57,8 @@ End group.
 ## Want to participate?
 
 SMTCoq is an ambitious, collaborative project: everyone is welcome!
-There are many and varied enhancement to do. You can have a look at the
-[task list](https://github.com/smtcoq/smtcoq/issues/40) or propose your
-own improvements!
+There are many and varied enhancement to do: join the [SMTCoq
+forum](https://framateam.org/smtcoq) to discuss!
 
 ## People
 ### Current team
