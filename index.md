@@ -22,7 +22,8 @@ Bugs can be reported on [github](https://github.com/smtcoq/smtcoq/issues).
 Here is a very small example of the possibilities of SMTCoq: automatic proofs in group theory.
 
 ```coq
-Require Import SMTCoq ZArith.
+From SMTCoq Require Import SMTCoq.
+Require Import ZArith.
 
 Local Open Scope Z_scope.
 
