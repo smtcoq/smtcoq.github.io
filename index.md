@@ -23,36 +23,41 @@ Here is a very small example of the possibilities of SMTCoq: automatic proofs in
 
 ```coq
 From SMTCoq Require Import SMTCoq.
-Require Import ZArith.
 
-Local Open Scope Z_scope.
+Section Group.
+  Variable G : Type.
+  (* We suppose that G has a decidable equality *)
+  Variable HG : CompDec G.
+  Variable op : G -> G -> G.
+  Variable inv : G -> G.
+  Variable e : G.
 
-Section group.
-  Variable e : Z.
-  Variable inv : Z -> Z.
-  Variable op : Z -> Z -> Z.
+  Local Notation "a ==? b" := (@eqb_of_compdec G HG a b) (at level 60).
 
+  (* We can prove automatically that we have a group if we only have the
+     "left" versions of the axioms of a group *)
   Hypothesis associative :
-    forall a b c, op a (op b c) =? op (op a b) c.
-  Hypothesis identity : forall a, (op e a =? a).
-  Hypothesis inverse : forall a, (op (inv a) a =? e).
-
-  Add_lemmas associative identity inverse.
+    forall a b c : G, op a (op b c) ==? op (op a b) c.
+  Hypothesis inverse :
+    forall a : G, op (inv a) a ==? e.
+  Hypothesis identity :
+    forall a : G, op e a ==? a.
+  Add_lemmas associative inverse identity.
 
   Lemma inverse' :
-    forall a : Z, (op a (inv a) =? e).
+    forall a : G, op a (inv a) ==? e.
   Proof. smt. Qed.
 
   Lemma identity' :
-    forall a : Z, (op a e =? a).
+    forall a : G, op a e ==? a.
   Proof. smt inverse'. Qed.
 
   Lemma unique_identity e':
-    (forall z, op e' z =? z) -> e' =? e.
+    (forall z, op e' z ==? z) -> e' ==? e.
   Proof. intros pe'; smt pe'. Qed.
 
   Clear_lemmas.
-End group.
+End Group.
 ```
 
 ## Want to participate?
