@@ -73,20 +73,21 @@ forum](https://framateam.org/smtcoq) to discuss!
 * Boris Djalal (Inria Saclay - Île-de-France)
 * Louise Dubois-de-Prisque (Inria Saclay - Île-de-France)
 * [Burak Ekici](http://ekiciburak.github.io/) (The University of Iowa)
-* Quentin Garchery (Université Paris-Sud, Inria Saclay - Île-de-France)
 * [Benjamin Grégoire](https://www-sop.inria.fr/members/Benjamin.Gregoire/) (Inria Sophia Antipolis)
 * [Guy Katz](http://stanford.edu/~guyk) (Stanford University)
-* [Chantal Keller](https://www.lri.fr/~keller/index-en.html) (Université Paris-Sud)
+* [Chantal Keller](https://www.lri.fr/~keller/index-en.html) (Université Paris-Saclay)
 * [Alain Mebsout](https://mebsout.github.io/) (OcamlPro)
 * [Andrew Reynolds](http://homepage.divms.uiowa.edu/~ajreynol) (The University of Iowa)
 * [Laurent Théry](https://www-sop.inria.fr/marelle/Laurent.Thery/moi.html) (Inria Sophia Antipolis)
 * [Cesare Tinelli](http://homepage.cs.uiowa.edu/~tinelli) (The University of Iowa)
 * [Pierre Vial](https://pierrevial.github.io) (Inria Saclay - Île-de-France)
+* [Arjun Viswanathan](http://homepage.divms.uiowa.edu/~viswanathn) (The University of Iowa)
 
 ### Past contributors
 * Mikaël Armand (Inria Sophia Antipolis)
 * Amina Bousalem (Université Paris-Sud)
 * Germain Faure (Inria Saclay)
+* Quentin Garchery (Université Paris-Sud, Inria Saclay - Île-de-France)
 * Tianyi Liang (The University of Iowa)
 * [Benjamin Werner](http://www.lix.polytechnique.fr/Labo/Benjamin.Werner) (École polytechnique)
 
