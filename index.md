@@ -2,7 +2,13 @@
 
 ## Presentation
 SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming from external SAT and SMT solvers. It provides:
-* a certified checker for proof witnesses coming from the SAT solver [ZChaff](http://www.princeton.edu/~chaff/zchaff.html) and the SMT solvers [veriT](http://www.verit-solver.org) and [CVC4](http://cvc4.cs.stanford.edu/web). This checker increases the confidence in these tools by checking their answers a posteriori and allows to import new theroems proved by these solvers in Coq;
+* a certified checker for proof witnesses coming from the SAT solver
+  [ZChaff](http://www.princeton.edu/~chaff/zchaff.html) and the SMT
+  solvers [veriT](http://www.verit-solver.org) and
+  [CVC4](http://cvc4.cs.stanford.edu/web). This checker increases the
+  confidence in these tools by checking their answers a posteriori and
+  allows to import new theroems proved by these solvers in Coq. It is
+  accessible in Coq or through a [C API](capi).;
 * decision procedures through new tactics that discharge some Coq goals to ZChaff, veriT, CVC4, and their combination.
 
 ## Installation and use
