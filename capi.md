@@ -1,6 +1,6 @@
-layout: page
-title: "C API"
-permalink: /capi
+<!-- layout: page -->
+<!-- title: "C API" -->
+<!-- permalink: /capi -->
 
 # C API for SMTCoq
 
