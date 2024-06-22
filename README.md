@@ -8,7 +8,7 @@ SMTCoq is a [Coq](http://coq.inria.fr) plugin that checks proof witnesses coming
   [CVC4](http://cvc4.cs.stanford.edu/web). This checker increases the
   confidence in these tools by checking their answers a posteriori and
   allows to import new theroems proved by these solvers in Coq. It is
-  accessible in Coq or through a [C API](capi);
+  accessible in Coq or through a [C API](capi.md);
 * decision procedures through new tactics that discharge some Coq goals to ZChaff, veriT, CVC4, and their combination.
 
 ## Installation and use
