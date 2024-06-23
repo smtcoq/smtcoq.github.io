@@ -6,7 +6,8 @@
 ## Presentation
 SMTCoq provides a C API for calling the certified checker from C or C++.
 
-This documentation supposes you are knowledgeable in SAT/SMT solving.
+This documentation assumes that the reader is knowledgeable in SAT/SMT
+solving, and in C or C++.
 
 ## Installation
 Under progress
@@ -83,14 +84,179 @@ int main(int argc, char ** argv)
 }
 ```
 
-- how to compile and run
-- debugging checker
+### Compiling and running
+Under progress
 
-## Advanced information
-- main starts with loading the OCaml runtime
-- sorts
-- funsyms
-- expressions
-- certificates
-- imperative vs functional SMTLIB2 interface
+### What is a certified checker?
+When running the program, the assertion goes through, meaning that
+`check_proof(step4)` returned `true`. It means that the certificate
+`step4` is indeed a proof of the unsatisfiability of the problem that
+was stated with calls to `declare_fun` and `assertf`, **with strong
+guaranties**: the checker is extracted from a program that has been
+written and certified using the Coq proof assistant. Thus, the degree of
+confidence in the fact that the stated problem is unsatisfiable is the
+one of Coq, with its extraction mechanism, and a bit of OCaml and C
+glue.
+
+What is certified is the correctness of the checker: when it answers
+`true`, then the input problem is unsatisfiable. Note that the checker
+is not certified to be complete: when it answers `false`, we learn
+nothing: it may be that the problem is satisfiable, or that there is a
+bug in the certificate.
+
+In addition to correctness, great care has been taken to make the
+checker as efficient as possible.
+
+### Debugging
+To understand what happens when the certified checker answers `false`,
+we also provide a debugging checker. This checker is **not** certified
+and is much less efficient, but it outputs the result of each step and
+details when something goes wrong.
+
+Let us try on the example: we replace the lines
+```c
+  assert(check_proof(step4));
+
+  printf("Example successful\n");
+```
+with
+```c
+  debug_check_proof(step4);
+```
+After compiling and running the program, we obtain the following output:
+```text
+Checking node step1: success, produces the clause {(and a (not a))}
+Checking node step2: success, produces the clause {a}
+Checking node step3: success, produces the clause {(not a)}
+Checking node step4: success, produces the clause {}
+Proof checking was successful (but this checker is NOT certified)
+```
+We can visualize proof checking step by step, referring to them by the
+names that were given. The produces clauses are written.
+
+> Remark: the steps can be checked in any valid order.
+
+As an example, suppose we make a mistake in the proof, and instead of
+resolving the results of `step2` and `step3`, we resolve the results of
+`step2` with `step1`. It amounts to replacing the line
+```c
+  CERTIF clauses[2] = {step2, step3};   // Proves the empty clause
+```
+with
+```c
+  CERTIF clauses[2] = {step2, step1};
+```
+
+Now, the output becomes:
+```text
+Checking node step1: success, produces the clause {(and a (not a))}
+Checking node step2: success, produces the clause {a}
+Checking node step4: failure [resolution: could not find resolvant]
+Stopping proof checking
+```
+
+### Supported logic
+This running example belongs to propositional logic, but the checker
+currently supports the logic `QF_UFLIA` of SMT-LIB2: propositional logic
+with the theories of equality and linear integer arithmetic.
+
+> Note: we plan to add support for bit vectors and arrays in the short
+> term, and universal quantifiers and the mid-term.
+
+It means that two sorts are built-in: `sort("Bool")` and `sort("Int")`.
+New uninterpreted sorts can be added by:
+```c
+SORT u = sort("U");
+declare_sort(u);
+```
+Parameterized sorts are not supported yet.
+
+Most expressions of this logic are supported. All the details can be
+found in the API (under progress).
+
+
+## Advanced details
+### OCaml runtime
+As explained, the certified checker is extracted from Coq, in the OCaml
+language. Callbacks and a bit of glue allows to use it in C/C++.
+
+This is why the files that uses the checker must load the library
+`caml/callback.h`, and the entry point of the program (the `main`
+function) must start with `caml_startup(argv);`.
+
+### Imperative vs functional SMT-LIB2 problem
+In the example above, the input problem is stated in a way which is
+similar to SMT-LIB2: sorts are declared with `declare_sort(•)`, function
+and predicate symbols with `declare_fun(•)`, assertions with
+`assertf(•)`; and finally, the checker is called with `check_proof(•)`.
+For this to work, the whole process **must** start with `start_smt2();`,
+which initialize the checker. It implies that, if calling
+`start_smt2();` again, all the sorts, function symbols and assertions
+must be declared again.
+
+To avoid this, we also propose a functional interface. In the example,
+it can be used like this:
+```c
+int main(int argc, char ** argv)
+{
+  // The main should always start with this command
+  caml_startup(argv);
+
+  // We declare an empty list of uninterpreted sorts
+  SORTS s = sorts(0, NULL);
+
+  // `asymb` is a function symbol with name "a", empty domain (`0` and
+  // `NULL`), and codomain in the sort `Bool`
+  FUNSYM asymb = funsym("a", 0, NULL, sort("Bool"));
+  FUNSYMS f = funsyms(1, &asymb);
+
+  // From this function symbol, we can define our expression `a ∧ ¬a`
+  // First, `a` is the application of `asym` to an empty list
+  EXPR a = efun(asymb, NULL);
+
+  // Then, let's build the expression `a ∧ ¬a`. `¬` is defined by the
+  // unary `enot` function, and ∧ by the n-ary `eand` function.
+  EXPR args[2] = {a, enot(a)};
+  EXPR anota = eand(2, args);
+
+  // Finally, let's assert this formula in our problem
+  ASSERTIONS ass = assertions(1, &anota);
+
+  // We obtain the full SMT-LIB2 problem
+  SMTLIB2 problem = smtlib2(s, f, ass);
+
+  // We can now build a proof of unsatisfiability, step by step
+  // The proof format is a subset of the Alethe format
+  //   <https://verit.loria.fr/documentation/alethe-spec.pdf>
+  // All the possible steps take as a first argument a name, that can be
+  // useful for debugging (more explanations later)
+  // First, let's get back our assumption, which is labeled `0` as it is
+  // the first (and only) one we declared
+  CERTIF step1 = cassume("step1", 0);   // Proves the clause `a ∧ ¬a`
+
+  // Then, let's break the ∧ in two, from step1
+  CERTIF step2 = cand("step2", step1, 1);   // Proves the clause `a`
+  CERTIF step3 = cand("step3", step1, 2);   // Proves the clause `¬a`
+
+  // Finally, we can resolve these two clauses to obtain the empty
+  // clause, which witnesses that our assertion was unsatisfiable
+  CERTIF clauses[2] = {step2, step3};   // Proves the empty clause
+  CERTIF step4 = cresolution("step4", 2, clauses);   // Proves the empty clause
+
+  // Let's us now call the functional certified checker, which should
+  // return `true`
+  assert(checker(problem, step4));
+
+  printf("Example successful\n");
+
+  return 0;
+}
+```
+
+### Sorts, function symbols and expressions
+A bit more about the types
+
+### Certificates
+
+### The full API
 - link to the doc of the full API
