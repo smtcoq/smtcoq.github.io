@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
   //   <https://verit.loria.fr/documentation/alethe-spec.pdf>
   // All the possible steps take as a first argument a name, that can be
   // useful for debugging (more explanations later)
-  // First, let's get back our assumption, which is labeled `0` as it is
+  // First, let's get back our assertion, which is labeled `0` as it is
   // the first (and only) one we declared
   CERTIF step1 = cassume("step1", 0);   // Proves the clause `a ∧ ¬a`
 
@@ -89,12 +89,12 @@ Under progress
 
 ### What is a certificate?
 In this setting, a *certificate* is a proof of the unsatisfiability of
-the conjunction of the assumptions. Such a proof, starting from the
-assumptions (using the rule `cassume`), derives new clauses, until it
+the conjunction of the assertions. Such a proof, starting from the
+assertions (using the rule `cassume`), derives new clauses, until it
 derives the empty clause.
 
 The invariant is that all the derived clauses are implied by the
-assumptions. As the empty clause can be derived, and is unsatisfiable,
+assertions. As the empty clause can be derived, and is unsatisfiable,
 it entails that the input problem is also unsatisfiable.
 
 We provide a set of rules that is complete for our logic, and which is a
@@ -245,7 +245,7 @@ int main(int argc, char ** argv)
   //   <https://verit.loria.fr/documentation/alethe-spec.pdf>
   // All the possible steps take as a first argument a name, that can be
   // useful for debugging (more explanations later)
-  // First, let's get back our assumption, which is labeled `0` as it is
+  // First, let's get back our assertion, which is labeled `0` as it is
   // the first (and only) one we declared
   CERTIF step1 = cassume("step1", 0);   // Proves the clause `a ∧ ¬a`
 
@@ -292,7 +292,7 @@ interpreted functions and predicates.
 
 ### Certificates
 Certificates are of type `CERTIF`. They represent proofs of
-unsatisfiability of conjunctions of formulas given as assumptions. We
+unsatisfiability of conjunctions of formulas given as assertions. We
 provide a subset of the Alethe proof format, as presented
 [here](https://verit.loria.fr/documentation/alethe-spec.pdf), with rules
 for:
