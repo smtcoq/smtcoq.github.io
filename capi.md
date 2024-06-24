@@ -187,7 +187,7 @@ declare_sort(u);
 Parameterized sorts are not supported yet.
 
 Most expressions of this logic are supported. All the details can be
-found in the API (under progress).
+found in [the full documentation of the API](doc/capi/modules.html).
 
 
 ## Advanced details
@@ -305,6 +305,8 @@ as well as an additional weakening rule.
 We refer the reader to the documentation of the API for details.
 
 ### The full API
-- link to the doc of the full API
+The full documentation of the API is available
+[here](doc/capi/modules.html).
 
 ### Tutorial
+Under progress
