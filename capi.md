@@ -87,6 +87,21 @@ int main(int argc, char ** argv)
 ### Compiling and running
 Under progress
 
+### What is a certificate?
+In this setting, a *certificate* is a proof of the unsatisfiability of
+the conjunction of the assumptions. Such a proof, starting from the
+assumptions (using the rule `cassume`), derives new clauses, until it
+derives the empty clause.
+
+The invariant is that all the derived clauses are implied by the
+assumptions. As the empty clause can be derived, and is unsatisfiable,
+it entails that the input problem is also unsatisfiable.
+
+We provide a set of rules that is complete for our logic, and which is a
+subset of [the Alethe proof
+format](https://verit.loria.fr/documentation/alethe-spec.pdf). See below
+for details.
+
 ### What is a certified checker?
 When running the program, the assertion goes through, meaning that
 `check_proof(step4)` returned `true`. It means that the certificate
