@@ -194,8 +194,8 @@ which initialize the checker. It implies that, if calling
 `start_smt2();` again, all the sorts, function symbols and assertions
 must be declared again.
 
-To avoid this, we also propose a functional interface. In the example,
-it can be used like this:
+We also propose a functional interface. In the example, it can be used
+like this:
 ```c
 int main(int argc, char ** argv)
 {
@@ -254,9 +254,42 @@ int main(int argc, char ** argv)
 ```
 
 ### Sorts, function symbols and expressions
-A bit more about the types
+Sorts are of type `SORT`. Sorts can be defined using the function
+```c
+SORT sort(char* s);
+```
+As explained above, the sorts `"Bool"` and `"Int"` are interpreted
+respectively as Booleans and integers (similarly to the SMT-LIB2
+standard), and all the other strings define new uninterpreted sorts
+which must be declared using the function `declare_sort` in the
+imperative way, or `sorts` in the functional variant.
+
+Uninterpreted function and predicate symbols are of type FUNSYM, and can
+be defined using the function
+```c
+FUNSYM funsym(char* name, size_t arity, const SORT* domain, SORT codomain);
+```
+Again, they must be declared using either `declare_fun` or `funsyms`.
+
+Finally, terms and formulas of first-order logic are of type `EXPR`. We
+provide a variety of function to define them using uninterpreted and
+interpreted functions and predicates.
 
 ### Certificates
+Certificates are of type `CERTIF`. They represent proofs of
+unsatisfiability of conjunctions of formulas given as assumptions. We
+provide a subset of the Alethe proof format, as presented
+[here](https://verit.loria.fr/documentation/alethe-spec.pdf), with rules
+for:
+- resolution
+- congruence closure
+- linear integer arithmetic
+- CNF computation
+as well as an additional weakening rule.
+
+We refer the reader to the documentation of the API for details.
 
 ### The full API
 - link to the doc of the full API
+
+### Tutorial
