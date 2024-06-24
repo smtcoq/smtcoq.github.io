@@ -10,6 +10,39 @@ This documentation assumes that the reader is knowledgeable in SAT/SMT
 solving, and in C or C++.
 
 ## Installation
+The simplest way to having the API directly installed on the machine is
+to use [opam](https://opam.ocaml.org). It has been tested only under
+Linux, but opam is also available for MacOS and Windows.
+
+Otherwise, we propose a docker and a VirtualBox images.
+
+### With opam
+Create a new switch with OCaml-4.09.1:
+```bash
+opam switch create smtcoqcapi 4.09.1
+eval $(opam env --switch=smtcoqcapi)
+```
+Download the git repository and switch to the correct branch:
+```bash
+git clone https://github.com/smtcoq/smtcoq.git
+cd smtcoq
+git checkout extrapi-coq-8.19
+```
+Compile and install:
+```bash
+cd src/extraction
+opam install -y .
+```
+> Note: there is no need to be root, everything is installed in user
+> space, in the opam switch.
+
+To compile a C program that uses the API, see
+[below](/capi#compiling-and-running).
+
+### With docker
+Under progress
+
+### With VirtualBox
 Under progress
 
 ## Questions and bug report
@@ -85,7 +118,13 @@ int main(int argc, char ** argv)
 ```
 
 ### Compiling and running
-Under progress
+To compile this program, save it in a file called `main.c`, and run the
+commands:
+```bash
+eval $(opam env --switch=smtcoqcapi)
+cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs
+```
+It generates a file `prog` which can be run with the command `./prog`.
 
 ### What is a certificate?
 In this setting, a *certificate* is a proof of the unsatisfiability of
