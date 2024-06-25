@@ -1,6 +1,8 @@
 # C API for SMTCoq - Tutorial
-Start with installing the API and reading [the documentation](capi.md)
-(no need to read the full documentation of the API at this stage).
+Start with installing the API and reading [the introductory example of
+the documentation](capi.md#introductory-example) (no need to read the
+"Advanced details" section or the full documentation of the API at this
+stage).
 
 > [!TIP]
 > When doing the exercises, if you observe that the certified checker
@@ -15,3 +17,10 @@ Modify the certificate accordingly.
 <summary>Tip</summary>
 Fewer rule kinds have to be used in the certificate.
 </details>
+
+## (*) Exercise 2
+Check a proof of the unsatisfiability of the conjunction of the two
+assertions `a ∧ ¬b` and `¬a ∧ b`.
+
+## (*) Exercise 3
+

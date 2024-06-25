@@ -37,7 +37,7 @@ opam install -y ./coq-smtcoq-extrapi.opam
 > space, in the opam switch.
 
 To compile a C program that uses the API, see
-[below](/capi#compiling-and-running).
+[below](capi.md#compiling-and-running).
 
 ### With docker
 Under progress
