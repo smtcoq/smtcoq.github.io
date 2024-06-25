@@ -18,31 +18,30 @@ Modify the certificate accordingly.
 Fewer rule kinds are needed for the certificate.
 </details>
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
-  FUNSYM asymb = funsym("a", 0, NULL, sort("Bool"));
-  declare_fun(asymb);
-  EXPR a = efun(asymb, NULL);
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
+  <span class="n">FUNSYM</span> <span class="n">asymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">asymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">a</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">asymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* Two assertions instead of one */
-  assertf(a);
-  assertf(enot(a));
+  <span class="cm">/* Two assertions instead of one */</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">enot</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
 
-  /* The two assumptions already prove steps 2 and 3 */
-  CERTIF step2 = cassume("step2", 0);   // Proves the clause `a`
-  CERTIF step3 = cassume("step3", 1);   // Proves the clause `¬a`
-  CERTIF clauses[2] = {step2, step3};
-  CERTIF step4 = cresolution("step4", 2, clauses);   // Proves the empty clause
-  assert(check_proof(step4));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="cm">/* The two assumptions already prove steps 2 and 3 */</span>
+  <span class="n">CERTIF</span> <span class="n">step2</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"step2"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>   <span class="c1">// Proves the clause `a`</span>
+  <span class="n">CERTIF</span> <span class="n">step3</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"step3"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>   <span class="c1">// Proves the clause `¬a`</span>
+  <span class="n">CERTIF</span> <span class="n">clauses</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">step2</span><span class="p">,</span> <span class="n">step3</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">step4</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"step4"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">clauses</span><span class="p">);</span>   <span class="c1">// Proves the empty clause</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">step4</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
 
 ### (*) Exercise 2
 Check a proof of the unsatisfiability of the conjunction of the two
