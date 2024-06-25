@@ -36,11 +36,22 @@ opam install -y ./coq-smtcoq-extrapi.opam
 > There is no need to be root, everything is installed in user
 > space, in the opam switch.
 
-To compile a C program that uses the API, see
-[below](capi.md#compiling-and-running).
+To compile a C program `main.c` that uses the API, run the following commands:
+```bash
+eval $(opam env --switch=smtcoqcapi)
+cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
+```
+It generates a file `prog` which can be run with the command `./prog`.
 
 ### With docker
-Under progress
+Pull the docker image `smtcoq/smtcoq-capi:latest`.
+
+To compile a C program `main.c` that uses the API in this docker image,
+run the following commands:
+```bash
+cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
+```
+It generates a file `prog` which can be run with the command `./prog`.
 
 ### With VirtualBox
 Under progress
@@ -118,13 +129,8 @@ int main(int argc, char ** argv)
 ```
 
 ### Compiling and running
-To compile this program, save it in a file called `main.c`, and run the
-commands:
-```bash
-eval $(opam env --switch=smtcoqcapi)
-cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs
-```
-It generates a file `prog` which can be run with the command `./prog`.
+See the end of [the installation instructions](capi.ml#installation),
+depending on your choice.
 
 ### What is a certificate?
 In this setting, a *certificate* is a proof of the unsatisfiability of
