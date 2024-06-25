@@ -105,7 +105,7 @@ int main(int argc, char ** argv)
 
   // Finally, we can resolve these two clauses to obtain the empty
   // clause, which witnesses that our assertion was unsatisfiable
-  CERTIF clauses[2] = {step2, step3};   // Proves the empty clause
+  CERTIF clauses[2] = {step2, step3};
   CERTIF step4 = cresolution("step4", 2, clauses);   // Proves the empty clause
 
   // Let's us now call the certified checker, which should return `true`
@@ -195,7 +195,7 @@ As an example, suppose we make a mistake in the proof, and instead of
 resolving the results of `step2` and `step3`, we resolve the results of
 `step2` with `step1`. It amounts to replacing the line
 ```c
-  CERTIF clauses[2] = {step2, step3};   // Proves the empty clause
+  CERTIF clauses[2] = {step2, step3};
 ```
 with
 ```c
@@ -296,7 +296,7 @@ int main(int argc, char ** argv)
 
   // Finally, we can resolve these two clauses to obtain the empty
   // clause, which witnesses that our assertion was unsatisfiable
-  CERTIF clauses[2] = {step2, step3};   // Proves the empty clause
+  CERTIF clauses[2] = {step2, step3};
   CERTIF step4 = cresolution("step4", 2, clauses);   // Proves the empty clause
 
   // Let's us now call the functional certified checker, which should
