@@ -32,7 +32,8 @@ Compile and install:
 ```bash
 opam install -y ./coq-smtcoq-extrapi.opam
 ```
-> Note: there is no need to be root, everything is installed in user
+> [!NOTE]
+> There is no need to be root, everything is installed in user
 > space, in the opam switch.
 
 To compile a C program that uses the API, see
@@ -187,7 +188,8 @@ Proof checking was successful (but this checker is NOT certified)
 We can visualize proof checking step by step, referring to them by the
 names that were given. The produces clauses are written.
 
-> Remark: the steps can be checked in any valid order.
+> [!NOTE]
+> The steps can be checked in any valid order.
 
 As an example, suppose we make a mistake in the proof, and instead of
 resolving the results of `step2` and `step3`, we resolve the results of
@@ -213,8 +215,9 @@ This running example belongs to propositional logic, but the checker
 currently supports the logic `QF_UFLIA` of SMT-LIB2: propositional logic
 with the theories of equality and linear integer arithmetic.
 
-> Note: we plan to add support for bit vectors and arrays in the short
-> term, and universal quantifiers and the mid-term.
+> [!NOTE]
+> We plan to add support for bit vectors and arrays in the short term,
+> and universal quantifiers and the mid-term.
 
 It means that two sorts are built-in: `sort("Bool")` and `sort("Int")`.
 New uninterpreted sorts can be added by:
