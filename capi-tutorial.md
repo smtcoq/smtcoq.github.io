@@ -15,7 +15,7 @@ Modify the certificate accordingly.
 
 <details>
 <summary>Tip</summary>
-Fewer rule kinds are needed for the certificate.
+<p>Fewer rule kinds are needed for the certificate.</p>
 </details>
 
 <details>
@@ -47,46 +47,45 @@ Fewer rule kinds are needed for the certificate.
 Check a proof of the unsatisfiability of the conjunction of the two
 assertions `a ∧ ¬b` and `¬a ∧ b`.
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
 
-  /* The two variables */
-  FUNSYM asymb = funsym("a", 0, NULL, sort("Bool"));
-  declare_fun(asymb);
-  EXPR a = efun(asymb, NULL);
-  FUNSYM bsymb = funsym("b", 0, NULL, sort("Bool"));
-  declare_fun(bsymb);
-  EXPR b = efun(bsymb, NULL);
+  <span class="cm">/* The two variables */</span>
+  <span class="n">FUNSYM</span> <span class="n">asymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">asymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">a</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">asymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">FUNSYM</span> <span class="n">bsymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"b"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">bsymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">b</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">bsymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* The two assertions */
-  EXPR args1[2] = {a, enot(b)};
-  assertf(eand(2, args1));
-  EXPR args2[2] = {enot(a), b};
-  assertf(eand(2, args2));
+  <span class="cm">/* The two assertions */</span>
+  <span class="n">EXPR</span> <span class="n">args1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">enot</span><span class="p">(</span><span class="n">b</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">args1</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">args2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">args2</span><span class="p">));</span>
 
-  /* Certificate: assertions */
-  CERTIF ass0 = cassume("ass0", 0);
-  CERTIF ass1 = cassume("ass1", 1);
+  <span class="cm">/* Certificate: assertions */</span>
+  <span class="n">CERTIF</span> <span class="n">ass0</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass0"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass1</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  /* Certificate: only one side of each conjunction is useful */
-  CERTIF and0 = cand("and0", ass0, 1);
-  CERTIF and1 = cand("and1", ass1, 1);
+  <span class="cm">/* Certificate: only one side of each conjunction is useful */</span>
+  <span class="n">CERTIF</span> <span class="n">and0</span> <span class="o">=</span> <span class="n">cand</span><span class="p">(</span><span class="s">"and0"</span><span class="p">,</span> <span class="n">ass0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">and1</span> <span class="o">=</span> <span class="n">cand</span><span class="p">(</span><span class="s">"and1"</span><span class="p">,</span> <span class="n">ass1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  /* Certificate: resolution */
-  CERTIF res[2] = {and0, and1};
-  CERTIF proof = cresolution("proof", 2, res);
+  <span class="cm">/* Certificate: resolution */</span>
+  <span class="n">CERTIF</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">and0</span><span class="p">,</span> <span class="n">and1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">proof</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"proof"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
 
-  /* Proof checking */
-  assert(check_proof(proof));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="cm">/* Proof checking */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">proof</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
 
 ### (*) Exercise 3
 Read the documentation about [disjunctive
@@ -97,50 +96,49 @@ rule](doc/capi/group__certif.html#gab8056b691f59ebb7bebeff31fb8f267e).
 Check a proof of the unsatisfiability of the conjunction of the two
 assertions `a ∧ ¬b` and `¬a ∨ b`.
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
 
-  /* The two variables */
-  FUNSYM asymb = funsym("a", 0, NULL, sort("Bool"));
-  declare_fun(asymb);
-  EXPR a = efun(asymb, NULL);
-  FUNSYM bsymb = funsym("b", 0, NULL, sort("Bool"));
-  declare_fun(bsymb);
-  EXPR b = efun(bsymb, NULL);
+  <span class="cm">/* The two variables */</span>
+  <span class="n">FUNSYM</span> <span class="n">asymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">asymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">a</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">asymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">FUNSYM</span> <span class="n">bsymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"b"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">bsymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">b</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">bsymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* The two assertions */
-  EXPR args1[2] = {a, enot(b)};
-  assertf(eand(2, args1));
-  EXPR args2[2] = {enot(a), b};
-  assertf(eor(2, args2));
+  <span class="cm">/* The two assertions */</span>
+  <span class="n">EXPR</span> <span class="n">args1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">enot</span><span class="p">(</span><span class="n">b</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">args1</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">args2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">args2</span><span class="p">));</span>
 
-  /* Certificate: assertions */
-  CERTIF ass0 = cassume("ass0", 0);
-  CERTIF ass1 = cassume("ass1", 1);
+  <span class="cm">/* Certificate: assertions */</span>
+  <span class="n">CERTIF</span> <span class="n">ass0</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass0"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass1</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  /* Certificate: both sides of the conjunction of the first assertion
-     are useful */
-  CERTIF and0 = cand("and0", ass0, 1);
-  CERTIF and1 = cand("and1", ass0, 2);
+  <span class="cm">/* Certificate: both sides of the conjunction of the first assertion
+     are useful */</span>
+  <span class="n">CERTIF</span> <span class="n">and0</span> <span class="o">=</span> <span class="n">cand</span><span class="p">(</span><span class="s">"and0"</span><span class="p">,</span> <span class="n">ass0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">and1</span> <span class="o">=</span> <span class="n">cand</span><span class="p">(</span><span class="s">"and1"</span><span class="p">,</span> <span class="n">ass0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 
-  /* Certificate: decompose the disjunction of the second assertion */
-  CERTIF or = cor("or", ass1);
+  <span class="cm">/* Certificate: decompose the disjunction of the second assertion */</span>
+  <span class="n">CERTIF</span> <span class="n">or</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or"</span><span class="p">,</span> <span class="n">ass1</span><span class="p">);</span>
 
-  /* Certificate: resolution */
-  CERTIF res[3] = {or, and0, and1};
-  CERTIF proof = cresolution("proof", 3, res);
+  <span class="cm">/* Certificate: resolution */</span>
+  <span class="n">CERTIF</span> <span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">or</span><span class="p">,</span> <span class="n">and0</span><span class="p">,</span> <span class="n">and1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">proof</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"proof"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
 
-  /* Proof checking */
-  assert(check_proof(proof));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="cm">/* Proof checking */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">proof</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
 
 ### (**) Exercise 4
 Read [the Wikipedia page of the pigeonhole
@@ -148,208 +146,217 @@ principle](https://en.wikipedia.org/wiki/Pigeonhole_principle). State
 the principle for 1 hole and 2 pigeons, and prove that it is
 unsatisfiable.
 
-<!-- <details> -->
-<!-- <summary>Tip 1</summary> -->
-One can use 2 Boolean variables: `xi` represents the fact that pigeon
-`i` is in the hole.
-<!-- </details> -->
+<details>
+<summary>Tip 1</summary>
+<p>One can use 2 Boolean variables: <code class="language-plaintext highlighter-rouge">xi</code> represents the fact that pigeon
+<code class="language-plaintext highlighter-rouge">i</code> is in the hole.</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 2</summary> -->
-There are two conditions:
-1. every pigeon must be in the hole
-2. the hole cannot contain two pigeons
-<!-- </details> -->
+<details>
+<summary>Tip 2</summary>
+<p>There are two conditions:</p>
+<ol>
+  <li>every pigeon must be in the hole</li>
+  <li>the hole cannot contain two pigeons
+</li>
+</ol>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 3</summary> -->
-The two conditions can be translated as:
-1. `x1` and `x2` are `true`
-2. `¬x1 ∨ ¬x2` is true
-<!-- </details> -->
+<details>
+<summary>Tip 3</summary>
+<p>The two conditions can be translated as:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">x1</code> and <code class="language-plaintext highlighter-rouge">x2</code> are <code class="language-plaintext highlighter-rouge">true</code></li>
+  <li><code class="language-plaintext highlighter-rouge">¬x1 ∨ ¬x2</code> is true
+</li>
+</ol>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 4</summary> -->
-The proof consists in destroying the disjunction in condition 2, then
+<details>
+<summary>Tip 4</summary>
+<p>The proof consists in destroying the disjunction in condition 2, then
 resolving with the two conditions 1.
-<!-- </details> -->
+</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
 
-  /* The 2 variables */
-  FUNSYM x1symb = funsym("x1", 0, NULL, sort("Bool"));
-  FUNSYM x2symb = funsym("x2", 0, NULL, sort("Bool"));
-  declare_fun(x1symb);
-  declare_fun(x2symb);
-  EXPR x1 = efun(x1symb, NULL);
-  EXPR x2 = efun(x2symb, NULL);
+  <span class="cm">/* The 2 variables */</span>
+  <span class="n">FUNSYM</span> <span class="n">x1symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x1"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">FUNSYM</span> <span class="n">x2symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x2"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x1symb</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x2symb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x1symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x2symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* Every pigeon is in the hole */
-  assertf(x1);
-  assertf(x2);
+  <span class="cm">/* Every pigeon is in the hole */</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">x1</span><span class="p">);</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">x2</span><span class="p">);</span>
 
-  /* The hole cannot contain more than one pigeon */
-  EXPR args[2] = {enot(x1), enot(x2)};
-  assertf(eor(2, args));
+  <span class="cm">/* The hole cannot contain more than one pigeon */</span>
+  <span class="n">EXPR</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x2</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">args</span><span class="p">));</span>
 
-  /* Certif: assertions */
-  CERTIF ass0 = cassume("ass0", 0);
-  CERTIF ass1 = cassume("ass1", 1);
-  CERTIF ass2 = cassume("ass2", 2);
+  <span class="cm">/* Certif: assertions */</span>
+  <span class="n">CERTIF</span> <span class="n">ass0</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass0"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass1</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass2</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass2"</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 
-  /* Certif: or rule */
-  CERTIF or = cor("or", ass2);
+  <span class="cm">/* Certif: or rule */</span>
+  <span class="n">CERTIF</span> <span class="n">or</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or"</span><span class="p">,</span> <span class="n">ass2</span><span class="p">);</span>
 
-  /* Certif: resolution */
-  CERTIF res[3] = {or, ass0, ass1};
-  CERTIF proof = cresolution("proof", 3, res);
+  <span class="cm">/* Certif: resolution */</span>
+  <span class="n">CERTIF</span> <span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">or</span><span class="p">,</span> <span class="n">ass0</span><span class="p">,</span> <span class="n">ass1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">proof</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"proof"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
 
-  /* Check the proof */
-  assert(check_proof(proof));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="cm">/* Check the proof */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">proof</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
 
 ### (***) Exercise 5
 State the pigeonhole principle for 2 holes and 3 pigeons, and prove that
 it is unsatisfiable.
 
-<!-- <details> -->
-<!-- <summary>Tip 1</summary> -->
-Again, one can use 6 Boolean variables: `xij` represents the fact that
-pigeon `i` is in hole `j`. The conditions are similar to Exercise 4.
-<!-- </details> -->
+<details>
+<summary>Tip 1</summary>
+<p>Again, one can use 6 Boolean variables: <code class="language-plaintext highlighter-rouge">xij</code> represents the fact that
+pigeon <code class="language-plaintext highlighter-rouge">i</code> is in hole <code class="language-plaintext highlighter-rouge">j</code>. The conditions are similar to Exercise 4.
+</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 2</summary> -->
-First prove that pigeon 1 is in hole 1.
-<!-- </details> -->
+<details>
+<summary>Tip 2</summary>
+<p>First prove that pigeon 1 is in hole 1.</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 3</summary> -->
-Then deduce that pigeon 2 cannot be in hole 1, and that pigeon 3 cannot
+<details>
+<summary>Tip 3</summary>
+<p>Then deduce that pigeon 2 cannot be in hole 1, and that pigeon 3 cannot
 be in hole 1.
-<!-- </details> -->
+</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 4</summary> -->
-Then deduce that pigeon 2 must be in hole 2, and that pigeon 3 must also
+<details>
+<summary>Tip 4</summary>
+<p>Then deduce that pigeon 2 must be in hole 2, and that pigeon 3 must also
 be in hole 2. Conclude.
-<!-- </details> -->
+</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Tip 5</summary> -->
-Do not forget to break `or`s first.
-<!-- </details> -->
+<details>
+<summary>Tip 5</summary>
+<p>Do not forget to break <code class="language-plaintext highlighter-rouge">or</code>s first.
+</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
 
-  /* The 6 variables */
-  FUNSYM x11symb = funsym("x11", 0, NULL, sort("Bool"));
-  FUNSYM x12symb = funsym("x12", 0, NULL, sort("Bool"));
-  FUNSYM x21symb = funsym("x21", 0, NULL, sort("Bool"));
-  FUNSYM x22symb = funsym("x22", 0, NULL, sort("Bool"));
-  FUNSYM x31symb = funsym("x31", 0, NULL, sort("Bool"));
-  FUNSYM x32symb = funsym("x32", 0, NULL, sort("Bool"));
-  declare_fun(x11symb);
-  declare_fun(x12symb);
-  declare_fun(x21symb);
-  declare_fun(x22symb);
-  declare_fun(x31symb);
-  declare_fun(x32symb);
-  EXPR x11 = efun(x11symb, NULL);
-  EXPR x12 = efun(x12symb, NULL);
-  EXPR x21 = efun(x21symb, NULL);
-  EXPR x22 = efun(x22symb, NULL);
-  EXPR x31 = efun(x31symb, NULL);
-  EXPR x32 = efun(x32symb, NULL);
+  <span class="cm">/* The 6 variables */</span>
+  <span class="n">FUNSYM</span> <span class="n">x11symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x11"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">FUNSYM</span> <span class="n">x12symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x12"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">FUNSYM</span> <span class="n">x21symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x21"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">FUNSYM</span> <span class="n">x22symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x22"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">FUNSYM</span> <span class="n">x31symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x31"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">FUNSYM</span> <span class="n">x32symb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x32"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Bool"</span><span class="p">));</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x11symb</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x12symb</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x21symb</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x22symb</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x31symb</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">x32symb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x11</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x11symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x12</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x12symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x21</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x21symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x22</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x22symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x31</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x31symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x32</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">x32symb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* Every pigeon is in a hole */
-  EXPR p1[2] = {x11, x12};
-  assertf(eor(2, p1));
-  EXPR p2[2] = {x21, x22};
-  assertf(eor(2, p2));
-  EXPR p3[2] = {x31, x32};
-  assertf(eor(2, p3));
+  <span class="cm">/* Every pigeon is in a hole */</span>
+  <span class="n">EXPR</span> <span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">x11</span><span class="p">,</span> <span class="n">x12</span><span class="p">};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">p1</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">p2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">x21</span><span class="p">,</span> <span class="n">x22</span><span class="p">};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">p2</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">p3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">x31</span><span class="p">,</span> <span class="n">x32</span><span class="p">};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">p3</span><span class="p">));</span>
 
-  /* A hole cannot contain more than one pigeon */
-  EXPR h1[2] = {enot(x11), enot(x21)};
-  assertf(eor(2, h1));
-  EXPR h2[2] = {enot(x11), enot(x31)};
-  assertf(eor(2, h2));
-  EXPR h3[2] = {enot(x21), enot(x31)};
-  assertf(eor(2, h3));
-  EXPR h4[2] = {enot(x12), enot(x22)};
-  assertf(eor(2, h4));
-  EXPR h5[2] = {enot(x12), enot(x32)};
-  assertf(eor(2, h5));
-  EXPR h6[2] = {enot(x22), enot(x32)};
-  assertf(eor(2, h6));
+  <span class="cm">/* A hole cannot contain more than one pigeon */</span>
+  <span class="n">EXPR</span> <span class="n">h1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x11</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x21</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">h1</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">h2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x11</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x31</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">h2</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">h3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x21</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x31</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">h3</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">h4</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x12</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x22</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">h4</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">h5</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x12</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x32</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">h5</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">h6</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">x22</span><span class="p">),</span> <span class="n">enot</span><span class="p">(</span><span class="n">x32</span><span class="p">)};</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">h6</span><span class="p">));</span>
 
-  /* Certif: assertions */
-  CERTIF ass0 = cassume("ass0", 0);
-  CERTIF ass1 = cassume("ass1", 1);
-  CERTIF ass2 = cassume("ass2", 2);
-  CERTIF ass3 = cassume("ass3", 3);
-  CERTIF ass4 = cassume("ass4", 4);
-  CERTIF ass5 = cassume("ass5", 5);
-  CERTIF ass6 = cassume("ass6", 6);
-  CERTIF ass7 = cassume("ass7", 7);
-  CERTIF ass8 = cassume("ass8", 8);
+  <span class="cm">/* Certif: assertions */</span>
+  <span class="n">CERTIF</span> <span class="n">ass0</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass0"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass1</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass2</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass2"</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass3</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass3"</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass4</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass4"</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass5</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass5"</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass6</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass6"</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass7</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass7"</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass8</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass8"</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
 
-  /* Certif: or rules */
-  CERTIF or0 = cor("or0", ass0);
-  CERTIF or1 = cor("or1", ass1);
-  CERTIF or2 = cor("or2", ass2);
-  CERTIF or3 = cor("or3", ass3);
-  CERTIF or4 = cor("or4", ass4);
-  CERTIF or5 = cor("or5", ass5);
-  CERTIF or6 = cor("or6", ass6);
-  CERTIF or7 = cor("or7", ass7);
-  CERTIF or8 = cor("or8", ass8);
+  <span class="cm">/* Certif: or rules */</span>
+  <span class="n">CERTIF</span> <span class="n">or0</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or0"</span><span class="p">,</span> <span class="n">ass0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or1</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or1"</span><span class="p">,</span> <span class="n">ass1</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or2</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or2"</span><span class="p">,</span> <span class="n">ass2</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or3</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or3"</span><span class="p">,</span> <span class="n">ass3</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or4</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or4"</span><span class="p">,</span> <span class="n">ass4</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or5</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or5"</span><span class="p">,</span> <span class="n">ass5</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or6</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or6"</span><span class="p">,</span> <span class="n">ass6</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or7</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or7"</span><span class="p">,</span> <span class="n">ass7</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">or8</span> <span class="o">=</span> <span class="n">cor</span><span class="p">(</span><span class="s">"or8"</span><span class="p">,</span> <span class="n">ass8</span><span class="p">);</span>
 
-  /* Certif: prove that pigeon 1 is in hole 1 */
-  CERTIF res1[4] = {or0, or6, or1, or5};
-  CERTIF reso1 = cresolution("reso1", 4, res1);
-  CERTIF res2[4] = {or0, or7, or2, reso1};
-  CERTIF reso2 = cresolution("reso2", 4, res2);
+  <span class="cm">/* Certif: prove that pigeon 1 is in hole 1 */</span>
+  <span class="n">CERTIF</span> <span class="n">res1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">or0</span><span class="p">,</span> <span class="n">or6</span><span class="p">,</span> <span class="n">or1</span><span class="p">,</span> <span class="n">or5</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">reso1</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"reso1"</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">res1</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">res2</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">or0</span><span class="p">,</span> <span class="n">or7</span><span class="p">,</span> <span class="n">or2</span><span class="p">,</span> <span class="n">reso1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">reso2</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"reso2"</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">res2</span><span class="p">);</span>
 
-  /* Certif: deduce that pigeon 2 cannot be in hole 1, and that pigeon 3
-     cannot be in hole 1 */
-  CERTIF res3[2] = {reso2, or3};
-  CERTIF reso3 = cresolution("reso3", 2, res3);
-  CERTIF res4[2] = {reso2, or4};
-  CERTIF reso4 = cresolution("reso4", 2, res4);
+  <span class="cm">/* Certif: deduce that pigeon 2 cannot be in hole 1, and that pigeon 3
+     cannot be in hole 1 */</span>
+  <span class="n">CERTIF</span> <span class="n">res3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">reso2</span><span class="p">,</span> <span class="n">or3</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">reso3</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"reso3"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">res3</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">res4</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">reso2</span><span class="p">,</span> <span class="n">or4</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">reso4</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"reso4"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">res4</span><span class="p">);</span>
 
-  /* Certif: deduce that pigeon 2 must be in hole 2, and that pigeon 3
-     must also be in hole 2 */
-  CERTIF res5[2] = {reso3, or1};
-  CERTIF reso5 = cresolution("reso5", 2, res5);
-  CERTIF res6[2] = {reso4, or2};
-  CERTIF reso6 = cresolution("reso6", 2, res6);
+  <span class="cm">/* Certif: deduce that pigeon 2 must be in hole 2, and that pigeon 3
+     must also be in hole 2 */</span>
+  <span class="n">CERTIF</span> <span class="n">res5</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">reso3</span><span class="p">,</span> <span class="n">or1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">reso5</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"reso5"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">res5</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">res6</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">reso4</span><span class="p">,</span> <span class="n">or2</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">reso6</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"reso6"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">res6</span><span class="p">);</span>
 
-  /* Conclude */
-  CERTIF resp[3] = {or8, reso5, reso6};
-  CERTIF proof = cresolution("proof", 3, resp);
+  <span class="cm">/* Conclude */</span>
+  <span class="n">CERTIF</span> <span class="n">resp</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">or8</span><span class="p">,</span> <span class="n">reso5</span><span class="p">,</span> <span class="n">reso6</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">proof</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"proof"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">resp</span><span class="p">);</span>
 
-  assert(check_proof(proof));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">proof</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
 
 ## Equality
 The theory of equality adds the `=` symbol and states that it is
@@ -414,55 +421,54 @@ Given an uninterpreted sort `U`, a variable `a` of type `U`, and a
 function symbol `f : U → U`, prove that the conjunction of `x = f(x)`
 and `¬(f(f(x)) = x)` is unsatisfiable.
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
 
-  /* The uninterpreted sort */
-  SORT u = sort("U");
-  declare_sort(u);
+  <span class="cm">/* The uninterpreted sort */</span>
+  <span class="n">SORT</span> <span class="n">u</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="s">"U"</span><span class="p">);</span>
+  <span class="n">declare_sort</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
 
-  /* A variable of this sort */
-  FUNSYM asymb = funsym("a", 0, NULL, u);
-  declare_fun(asymb);
-  EXPR a = efun(asymb, NULL);
+  <span class="cm">/* A variable of this sort */</span>
+  <span class="n">FUNSYM</span> <span class="n">asymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">u</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">asymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">a</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">asymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* A function symbol of type U → U */
-  FUNSYM fsymb = funsym("f", 1, &u, u);
-  declare_fun(fsymb);
-  EXPR fa = efun(fsymb, &a);
-  EXPR ffa = efun(fsymb, &fa);
+  <span class="cm">/* A function symbol of type U → U */</span>
+  <span class="n">FUNSYM</span> <span class="n">fsymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"f"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">fsymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">fa</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">fsymb</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">ffa</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">fsymb</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">);</span>
 
-  /* The two assertions */
-  assertf(eeq(a, fa));
-  assertf(enot(eeq(ffa, a)));
+  <span class="cm">/* The two assertions */</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">fa</span><span class="p">));</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">enot</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">ffa</span><span class="p">,</span> <span class="n">a</span><span class="p">)));</span>
 
-  /* Certificate: assertions */
-  CERTIF ass0 = cassume("ass0", 0);
-  CERTIF ass1 = cassume("ass1", 1);
+  <span class="cm">/* Certificate: assertions */</span>
+  <span class="n">CERTIF</span> <span class="n">ass0</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass0"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass1</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  /* Certificate: congruence */
-  EXPR clause[2] = {enot(eeq(a, fa)), eeq(fa, ffa)};
-  CERTIF congr = ceq_congruent("congr", 2, clause);
+  <span class="cm">/* Certificate: congruence */</span>
+  <span class="n">EXPR</span> <span class="n">clause</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">fa</span><span class="p">)),</span> <span class="n">eeq</span><span class="p">(</span><span class="n">fa</span><span class="p">,</span> <span class="n">ffa</span><span class="p">)};</span>
+  <span class="n">CERTIF</span> <span class="n">congr</span> <span class="o">=</span> <span class="n">ceq_congruent</span><span class="p">(</span><span class="s">"congr"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">clause</span><span class="p">);</span>
 
-  /* Certificate: transitivity */
-  EXPR es[3] = {a, fa, ffa};
-  CERTIF trans = ceq_transitive("trans", 3, es);
+  <span class="cm">/* Certificate: transitivity */</span>
+  <span class="n">EXPR</span> <span class="n">es</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">ffa</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">trans</span> <span class="o">=</span> <span class="n">ceq_transitive</span><span class="p">(</span><span class="s">"trans"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">es</span><span class="p">);</span>
 
-  /* Certificate: resolution */
-  CERTIF res[4] = {congr, trans, ass0, ass1};
-  CERTIF proof = cresolution("proof", 4, res);
+  <span class="cm">/* Certificate: resolution */</span>
+  <span class="n">CERTIF</span> <span class="n">res</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">congr</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">ass0</span><span class="p">,</span> <span class="n">ass1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">proof</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"proof"</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
 
-  /* Proof checking */
-  assert(check_proof(proof));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="cm">/* Proof checking */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">proof</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
 
 ### Other rules for equality
 Read the documentation about the rules of
@@ -492,60 +498,60 @@ Given a function symbol `f` of type `Int → Int`, and two variable `x`
 and `y` of type `Int`, prove that the conjunction of `y = x+1` and
 `¬(f(x) = f(y-1))` is unsatisfiable.
 
-<!-- <details> -->
-<!-- <summary>Tip</summary> -->
-Remember that the sort `"Int`" is interpreted and can be defined using
-`sort("Int")`, as presented in [the documentation about
-sorts](doc/capi/group__sort.html).
-<!-- </details> -->
+<details>
+<summary>Tip</summary>
+<p>Remember that the sort <code class="language-plaintext highlighter-rouge">"Int</code>” is interpreted and can be defined using
+<code class="language-plaintext highlighter-rouge">sort("Int")</code>, as presented in <a href="doc/capi/group__sort.html">the documentation about
+sorts</a>.
+</p>
+</details>
 
-<!-- <details> -->
-<!-- <summary>Solution</summary> -->
-```c
-int main(int argc, char ** argv)
-{
-  caml_startup(argv);
-  start_smt2();
+<details>
+<summary>Solution</summary>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">caml_startup</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">start_smt2</span><span class="p">();</span>
 
-  /* The two variables */
-  SORT s = sort("Int");
-  FUNSYM xsymb = funsym("x", 0, NULL, s);
-  declare_fun(xsymb);
-  EXPR x = efun(xsymb, NULL);
-  FUNSYM ysymb = funsym("y", 0, NULL, s);
-  declare_fun(ysymb);
-  EXPR y = efun(ysymb, NULL);
+  <span class="cm">/* The two variables */</span>
+  <span class="n">SORT</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="s">"Int"</span><span class="p">);</span>
+  <span class="n">FUNSYM</span> <span class="n">xsymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"x"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">xsymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">x</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">xsymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">FUNSYM</span> <span class="n">ysymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"y"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">ysymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">y</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">ysymb</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-  /* A function symbol of type Int → Int */
-  FUNSYM fsymb = funsym("f", 1, &s, s);
-  declare_fun(fsymb);
-  EXPR fx = efun(fsymb, &x);
-  EXPR yminone = eminus(y, eint(1));
-  EXPR fyminone = efun(fsymb, &yminone);
+  <span class="cm">/* A function symbol of type Int → Int */</span>
+  <span class="n">FUNSYM</span> <span class="n">fsymb</span> <span class="o">=</span> <span class="n">funsym</span><span class="p">(</span><span class="s">"f"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+  <span class="n">declare_fun</span><span class="p">(</span><span class="n">fsymb</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">fx</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">fsymb</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
+  <span class="n">EXPR</span> <span class="n">yminone</span> <span class="o">=</span> <span class="n">eminus</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">eint</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+  <span class="n">EXPR</span> <span class="n">fyminone</span> <span class="o">=</span> <span class="n">efun</span><span class="p">(</span><span class="n">fsymb</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">yminone</span><span class="p">);</span>
 
-  /* The two assertions */
-  assertf(eeq(y, eadd(x, eint(1))));
-  assertf(enot(eeq(fx, fyminone)));
+  <span class="cm">/* The two assertions */</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">eadd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eint</span><span class="p">(</span><span class="mi">1</span><span class="p">))));</span>
+  <span class="n">assertf</span><span class="p">(</span><span class="n">enot</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">fyminone</span><span class="p">)));</span>
 
-  /* Certificate: assertions */
-  CERTIF ass0 = cassume("ass0", 0);
-  CERTIF ass1 = cassume("ass1", 1);
+  <span class="cm">/* Certificate: assertions */</span>
+  <span class="n">CERTIF</span> <span class="n">ass0</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass0"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">CERTIF</span> <span class="n">ass1</span> <span class="o">=</span> <span class="n">cassume</span><span class="p">(</span><span class="s">"ass1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  /* Certificate: LIA */
-  EXPR clauselia[2] = {enot(eeq(y, eadd(x, eint(1)))), eeq(x, eminus(y, eint(1)))};
-  CERTIF lia = clia_generic("lia", 2, clauselia);
+  <span class="cm">/* Certificate: LIA */</span>
+  <span class="n">EXPR</span> <span class="n">clauselia</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">eadd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eint</span><span class="p">(</span><span class="mi">1</span><span class="p">)))),</span> <span class="n">eeq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eminus</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">eint</span><span class="p">(</span><span class="mi">1</span><span class="p">)))};</span>
+  <span class="n">CERTIF</span> <span class="n">lia</span> <span class="o">=</span> <span class="n">clia_generic</span><span class="p">(</span><span class="s">"lia"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">clauselia</span><span class="p">);</span>
 
-  /* Certificate: congruence */
-  EXPR clause[2] = {enot(eeq(x, eminus(y, eint(1)))), eeq(fx, fyminone)};
-  CERTIF congr = ceq_congruent("congr", 2, clause);
+  <span class="cm">/* Certificate: congruence */</span>
+  <span class="n">EXPR</span> <span class="n">clause</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">enot</span><span class="p">(</span><span class="n">eeq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eminus</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">eint</span><span class="p">(</span><span class="mi">1</span><span class="p">)))),</span> <span class="n">eeq</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">fyminone</span><span class="p">)};</span>
+  <span class="n">CERTIF</span> <span class="n">congr</span> <span class="o">=</span> <span class="n">ceq_congruent</span><span class="p">(</span><span class="s">"congr"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">clause</span><span class="p">);</span>
 
-  /* Certificate: resolution */
-  CERTIF res[4] = {congr, lia, ass0, ass1};
-  CERTIF proof = cresolution("proof", 4, res);
+  <span class="cm">/* Certificate: resolution */</span>
+  <span class="n">CERTIF</span> <span class="n">res</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">congr</span><span class="p">,</span> <span class="n">lia</span><span class="p">,</span> <span class="n">ass0</span><span class="p">,</span> <span class="n">ass1</span><span class="p">};</span>
+  <span class="n">CERTIF</span> <span class="n">proof</span> <span class="o">=</span> <span class="n">cresolution</span><span class="p">(</span><span class="s">"proof"</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
 
-  /* Proof checking */
-  assert(check_proof(proof));
-  return 0;
-}
-```
-<!-- </details> -->
+  <span class="cm">/* Proof checking */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">check_proof</span><span class="p">(</span><span class="n">proof</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</details>
