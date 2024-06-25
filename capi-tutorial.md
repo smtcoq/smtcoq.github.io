@@ -224,9 +224,132 @@ State the pigeonhole principle for 2 holes and 3 pigeons, and prove that
 it is unsatisfiable.
 
 <details>
-<summary>Tip</summary>
-One can use 6 Boolean variables: `xij` represents the fact that pigeon
-`i` is in hole `j`.
+<summary>Tip 1</summary>
+Again, one can use 6 Boolean variables: `xij` represents the fact that
+pigeon `i` is in hole `j`. The conditions are similar to Exercise 4.
+</details>
+
+<details>
+<summary>Tip 2</summary>
+First prove that pigeon 1 is in hole 1.
+</details>
+
+<details>
+<summary>Tip 3</summary>
+Then deduce that pigeon 2 cannot be in hole 1, and that pigeon 3 cannot
+be in hole 1.
+</details>
+
+<details>
+<summary>Tip 4</summary>
+Then deduce that pigeon 2 must be in hole 2, and that pigeon 3 must also
+be in hole 2. Conclude.
+</details>
+
+<details>
+<summary>Tip 5</summary>
+Do not forget to break `or`s first.
+</details>
+
+<details>
+<summary>Solution</summary>
+```c
+int main(int argc, char ** argv)
+{
+  caml_startup(argv);
+  start_smt2();
+
+  /* The 6 variables */
+  FUNSYM x11symb = funsym("x11", 0, NULL, sort("Bool"));
+  FUNSYM x12symb = funsym("x12", 0, NULL, sort("Bool"));
+  FUNSYM x21symb = funsym("x21", 0, NULL, sort("Bool"));
+  FUNSYM x22symb = funsym("x22", 0, NULL, sort("Bool"));
+  FUNSYM x31symb = funsym("x31", 0, NULL, sort("Bool"));
+  FUNSYM x32symb = funsym("x32", 0, NULL, sort("Bool"));
+  declare_fun(x11symb);
+  declare_fun(x12symb);
+  declare_fun(x21symb);
+  declare_fun(x22symb);
+  declare_fun(x31symb);
+  declare_fun(x32symb);
+  EXPR x11 = efun(x11symb, NULL);
+  EXPR x12 = efun(x12symb, NULL);
+  EXPR x21 = efun(x21symb, NULL);
+  EXPR x22 = efun(x22symb, NULL);
+  EXPR x31 = efun(x31symb, NULL);
+  EXPR x32 = efun(x32symb, NULL);
+
+  /* Every pigeon is in a hole */
+  EXPR p1[2] = {x11, x12};
+  assertf(eor(2, p1));
+  EXPR p2[2] = {x21, x22};
+  assertf(eor(2, p2));
+  EXPR p3[2] = {x31, x32};
+  assertf(eor(2, p3));
+
+  /* A hole cannot contain more than one pigeon */
+  EXPR h1[2] = {enot(x11), enot(x21)};
+  assertf(eor(2, h1));
+  EXPR h2[2] = {enot(x11), enot(x31)};
+  assertf(eor(2, h2));
+  EXPR h3[2] = {enot(x21), enot(x31)};
+  assertf(eor(2, h3));
+  EXPR h4[2] = {enot(x12), enot(x22)};
+  assertf(eor(2, h4));
+  EXPR h5[2] = {enot(x12), enot(x32)};
+  assertf(eor(2, h5));
+  EXPR h6[2] = {enot(x22), enot(x32)};
+  assertf(eor(2, h6));
+
+  /* Certif: assertions */
+  CERTIF ass0 = cassume("ass0", 0);
+  CERTIF ass1 = cassume("ass1", 1);
+  CERTIF ass2 = cassume("ass2", 2);
+  CERTIF ass3 = cassume("ass3", 3);
+  CERTIF ass4 = cassume("ass4", 4);
+  CERTIF ass5 = cassume("ass5", 5);
+  CERTIF ass6 = cassume("ass6", 6);
+  CERTIF ass7 = cassume("ass7", 7);
+  CERTIF ass8 = cassume("ass8", 8);
+
+  /* Certif: or rules */
+  CERTIF or0 = cor("or0", ass0);
+  CERTIF or1 = cor("or1", ass1);
+  CERTIF or2 = cor("or2", ass2);
+  CERTIF or3 = cor("or3", ass3);
+  CERTIF or4 = cor("or4", ass4);
+  CERTIF or5 = cor("or5", ass5);
+  CERTIF or6 = cor("or6", ass6);
+  CERTIF or7 = cor("or7", ass7);
+  CERTIF or8 = cor("or8", ass8);
+
+  /* Certif: prove that pigeon 1 is in hole 1 */
+  CERTIF res1[4] = {or0, or6, or1, or5};
+  CERTIF reso1 = cresolution("reso1", 4, res1);
+  CERTIF res2[4] = {or0, or7, or2, reso1};
+  CERTIF reso2 = cresolution("reso2", 4, res2);
+
+  /* Certif: deduce that pigeon 2 cannot be in hole 1, and that pigeon 3
+     cannot be in hole 1 */
+  CERTIF res3[2] = {reso2, or3};
+  CERTIF reso3 = cresolution("reso3", 2, res3);
+  CERTIF res4[2] = {reso2, or4};
+  CERTIF reso4 = cresolution("reso4", 2, res4);
+
+  /* Certif: deduce that pigeon 2 must be in hole 2, and that pigeon 3
+     must also be in hole 2 */
+  CERTIF res5[2] = {reso3, or1};
+  CERTIF reso5 = cresolution("reso5", 2, res5);
+  CERTIF res6[2] = {reso4, or2};
+  CERTIF reso6 = cresolution("reso6", 2, res6);
+
+  /* Conclude */
+  CERTIF resp[3] = {or8, reso5, reso6};
+  CERTIF proof = cresolution("proof", 3, resp);
+
+  assert(check_proof(proof));
+  return 0;
+}```
 </details>
 
 ## Equality
