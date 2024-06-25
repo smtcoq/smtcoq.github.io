@@ -349,3 +349,81 @@ and congruence with predicate symbols, [version
 1](doc/capi/group__certif.html#gad473e91564e6a49236df6addab232e1a) and
 [version
 2](doc/capi/group__certif.html#ga305676154055af2d9bf830a5b7b543b3).
+
+## Linear integer arithmetic
+Finally, the theory of linear integer arithmetic adds the sort `"Int"`,
+integers, and operations on them. We refer the reader to [the
+documentation of the expressions](doc/capi/group__expr.html) to
+visualize them.
+
+SMTCoq's checker integrates a powerful certifying linear arithmetic
+solver called Micromega, designed and implemented by Frédéric Besson.
+Thus, there is a single rule for this theory:
+[lia_generic](doc/capi/group__certif.html#ga438b36ae6d1fa0056aec06c5b4c5d85b).
+
+> [!NOTE]
+> The literals in the clause given to `lia_generic` must belong to the
+> theory of linear integer arithmetic only.
+
+### (**) Exercise 8
+Given a function symbol `f` of type `Int → Int`, and two variable `x`
+and `y` of type `Int`, prove that the conjunction of `y = x+1` and
+`¬(f(x) = f(y-1))` is unsatisfiable.
+
+<details>
+<summary>Tip</summary>
+Remember that the sort `"Int`" is interpreted and can be defined using
+`sort("Int")`, as presented in [the documentation about
+sorts](doc/capi/group__sort.html).
+</details>
+
+<details>
+<summary>Solution</summary>
+```c
+int main(int argc, char ** argv)
+{
+  caml_startup(argv);
+  start_smt2();
+
+  /* The two variables */
+  SORT s = sort("Int");
+  FUNSYM xsymb = funsym("x", 0, NULL, s);
+  declare_fun(xsymb);
+  EXPR x = efun(xsymb, NULL);
+  FUNSYM ysymb = funsym("y", 0, NULL, s);
+  declare_fun(ysymb);
+  EXPR y = efun(ysymb, NULL);
+
+  /* A function symbol of type Int → Int */
+  FUNSYM fsymb = funsym("f", 1, &s, s);
+  declare_fun(fsymb);
+  EXPR fx = efun(fsymb, &x);
+  EXPR yminone = eminus(y, eint(1));
+  EXPR fyminone = efun(fsymb, &yminone);
+
+  /* The two assertions */
+  assertf(eeq(y, eadd(x, eint(1))));
+  assertf(enot(eeq(fx, fyminone)));
+
+  /* Certificate: assertions */
+  CERTIF ass0 = cassume("ass0", 0);
+  CERTIF ass1 = cassume("ass1", 1);
+
+  /* Certificate: LIA */
+  EXPR clauselia[2] = {enot(eeq(y, eadd(x, eint(1)))), eeq(x, eminus(y, eint(1)))};
+  CERTIF lia = clia_generic("lia", 2, clauselia);
+
+  /* Certificate: congruence */
+  EXPR clause[2] = {enot(eeq(x, eminus(y, eint(1)))), eeq(fx, fyminone)};
+  CERTIF congr = ceq_congruent("congr", 2, clause);
+
+  /* Certificate: resolution */
+  CERTIF res[4] = {congr, lia, ass0, ass1};
+  CERTIF proof = cresolution("proof", 4, res);
+
+  /* Proof checking */
+  assert(check_proof(proof));
+  return 0;
+}
+```
+</details>
