@@ -8,7 +8,8 @@ stage).
 > When doing the exercises, if you observe that the certified checker
 > answers `false`, do not hesitate to use the debugging checker.
 
-## (*) Exercise 1
+## Propositional logic
+### (*) Exercise 1
 Modify the introductory example of [the documentation](capi.md) so that,
 instead of asserting `a ∧ ¬a`, there are two assertions: `a` and `¬a`.
 Modify the certificate accordingly.
@@ -44,7 +45,7 @@ int main(int argc, char ** argv)
 ```
 </details>
 
-## (*) Exercise 2
+### (*) Exercise 2
 Check a proof of the unsatisfiability of the conjunction of the two
 assertions `a ∧ ¬b` and `¬a ∧ b`.
 
@@ -89,7 +90,7 @@ int main(int argc, char ** argv)
 ```
 </details>
 
-## (*) Exercise 3
+### (*) Exercise 3
 Read the documentation about [disjunctive
 expressions](doc/capi/group__expr.html#gab60d6ebf23e56fb0b44f87e8f259fdd6)
 and the [or
@@ -143,7 +144,7 @@ int main(int argc, char ** argv)
 ```
 </details>
 
-## (**) Exercise 4
+### (**) Exercise 4
 Read [the Wikipedia page of the pigeonhole
 principle](https://en.wikipedia.org/wiki/Pigeonhole_principle). State
 the principle for 1 hole and 2 pigeons, and prove that it is
@@ -218,7 +219,7 @@ int main(int argc, char ** argv)
 ```
 </details>
 
-## (***) Exercise 5
+### (***) Exercise 5
 State the pigeonhole principle for 2 holes and 3 pigeons, and prove that
 it is unsatisfiable.
 
@@ -227,3 +228,124 @@ it is unsatisfiable.
 One can use 6 Boolean variables: `xij` represents the fact that pigeon
 `i` is in hole `j`.
 </details>
+
+## Equality
+The theory of equality adds the `=` symbol and states that it is
+reflexive, symmetric, transitive, and congruent with respect to function
+and predicate symbols, independently of types.
+
+Read the documentation about [equality in
+expressions](doc/capi/group__expr.html#ga5b4c571a6e7d5e2dd5df2f3b460ec264)
+and [defining new uninterpreted sorts](doc/capi/group__sort.html).
+
+### (*) Exercise 6
+Test the following program:
+```c
+int main(int argc, char ** argv)
+{
+  caml_startup(argv);
+  start_smt2();
+
+  /* An uninterpreted sort */
+  SORT u = sort("U");
+  declare_sort(u);
+
+  /* Two variables of this sort */
+  FUNSYM asymb = funsym("a", 0, NULL, u);
+  declare_fun(asymb);
+  EXPR a = efun(asymb, NULL);
+  FUNSYM bsymb = funsym("b", 0, NULL, u);
+  declare_fun(bsymb);
+  EXPR b = efun(bsymb, NULL);
+
+  /* Assert that `a = b` and `¬(b = a)` */
+  assertf(eeq(a, b));
+  assertf(enot(eeq(b, a)));
+
+  /* Certificate: assertions */
+  CERTIF ass0 = cassume("ass0", 0);
+  CERTIF ass1 = cassume("ass1", 1);
+
+  /* Certificate: resolution */
+  CERTIF res[2] = {ass0, ass1};
+  CERTIF proof = cresolution("proof", 2, res);
+
+  /* Proof checking */
+  assert(check_proof(proof));
+  return 0;
+}
+```
+What can you deduce from the way the SMTCoq checker treats symmetry of equality?
+
+### (**) Exercise 7
+Read the documentation about the rules of
+[reflexivity](doc/capi/group__certif.html#ga70b095e9d0b3f1a384694a5153229dc8),
+[transitivity](doc/capi/group__certif.html#ga5c6d6243a1007746561fd3ae87cdbb63),
+[congruence with function
+symbols](doc/capi/group__certif.html#ga2c9d482c3108dcba2e531bc5f3176dbe),
+and [congruence with predicate
+symbols](doc/capi/group__certif.html#gad473e91564e6a49236df6addab232e1a)
+(and [its
+variant](doc/capi/group__certif.html#ga305676154055af2d9bf830a5b7b543b3)).
+
+Given an uninterpreted sort `U`, a variable `a` of type `U`, and a
+function symbol `f : U → U`, prove that the conjunction of `x = f(x)`
+and `¬(f(f(x)) = x)` is unsatisfiable.
+
+<details>
+<summary>Solution</summary>
+```c
+int main(int argc, char ** argv)
+{
+  caml_startup(argv);
+  start_smt2();
+
+  /* The uninterpreted sort */
+  SORT u = sort("U");
+  declare_sort(u);
+
+  /* A variable of this sort */
+  FUNSYM asymb = funsym("a", 0, NULL, u);
+  declare_fun(asymb);
+  EXPR a = efun(asymb, NULL);
+
+  /* A function symbol of type U → U */
+  FUNSYM fsymb = funsym("f", 1, &u, u);
+  declare_fun(fsymb);
+  EXPR fa = efun(fsymb, &a);
+  EXPR ffa = efun(fsymb, &fa);
+
+  /* The two assertions */
+  assertf(eeq(a, fa));
+  assertf(enot(eeq(ffa, a)));
+
+  /* Certificate: assertions */
+  CERTIF ass0 = cassume("ass0", 0);
+  CERTIF ass1 = cassume("ass1", 1);
+
+  /* Certificate: congruence */
+  EXPR clause[2] = {enot(eeq(a, fa)), eeq(fa, ffa)};
+  CERTIF congr = ceq_congruent("congr", 2, clause);
+
+  /* Certificate: transitivity */
+  EXPR es[3] = {a, fa, ffa};
+  CERTIF trans = ceq_transitive("trans", 3, es);
+
+  /* Certificate: resolution */
+  CERTIF res[4] = {congr, trans, ass0, ass1};
+  CERTIF proof = cresolution("proof", 4, res);
+
+  /* Proof checking */
+  assert(check_proof(proof));
+  return 0;
+}
+```
+</details>
+
+### Other rules for equality
+Read the documentation about the rules of
+[reflexivity](doc/capi/group__certif.html#ga70b095e9d0b3f1a384694a5153229dc8)
+and congruence with predicate symbols, [version
+1](doc/capi/group__certif.html#gad473e91564e6a49236df6addab232e1a) and
+[version
+2](doc/capi/group__certif.html#ga305676154055af2d9bf830a5b7b543b3).
