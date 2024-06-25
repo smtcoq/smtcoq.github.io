@@ -30,8 +30,7 @@ git checkout extrapi-coq-8.19
 ```
 Compile and install:
 ```bash
-cd src/extraction
-opam install -y .
+opam install -y ./coq-smtcoq-extrapi.opam
 ```
 > Note: there is no need to be root, everything is installed in user
 > space, in the opam switch.
@@ -348,4 +347,5 @@ The full documentation of the API is available
 [here](doc/capi/modules.html).
 
 ### Tutorial
-Under progress
+We provide [a tutorial](capi-tutorial.md) with exercises to
+progressively take over the API.
