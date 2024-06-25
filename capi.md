@@ -32,7 +32,7 @@ Compile and install:
 ```bash
 opam install -y ./coq-smtcoq-extrapi.opam
 ```
-> [!NOTE]
+> Note:
 > There is no need to be root, everything is installed in user
 > space, in the opam switch.
 
@@ -129,8 +129,7 @@ int main(int argc, char ** argv)
 ```
 
 ### Compiling and running
-See the end of [the installation instructions](capi.ml#installation),
-depending on your choice.
+See the end of the installation instructions, depending on your choice.
 
 ### What is a certificate?
 In this setting, a *certificate* is a proof of the unsatisfiability of
@@ -194,7 +193,7 @@ Proof checking was successful (but this checker is NOT certified)
 We can visualize proof checking step by step, referring to them by the
 names that were given. The produces clauses are written.
 
-> [!NOTE]
+> Note:
 > The steps can be checked in any valid order.
 
 As an example, suppose we make a mistake in the proof, and instead of
@@ -221,7 +220,7 @@ This running example belongs to propositional logic, but the checker
 currently supports the logic `QF_UFLIA` of SMT-LIB2: propositional logic
 with the theories of equality and linear integer arithmetic.
 
-> [!NOTE]
+> Note:
 > We plan to add support for bit vectors and arrays in the short term,
 > and universal quantifiers and the mid-term.
 

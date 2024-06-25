@@ -1,10 +1,9 @@
 # C API for SMTCoq - Tutorial
-Start with installing the API and reading [the introductory example of
-the documentation](capi.md#introductory-example) (no need to read the
-"Advanced details" section or the full documentation of the API at this
-stage).
+Start with installing the API and reading the introductory example of
+[the documentation](capi.md) (no need to read the "Advanced details"
+section or the full documentation of the API at this stage).
 
-> [!TIP]
+> Tip:
 > When doing the exercises, if you observe that the certified checker
 > answers `false`, do not hesitate to use the debugging checker.
 
@@ -19,8 +18,8 @@ Modify the certificate accordingly.
 Fewer rule kinds are needed for the certificate.
 </details>
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -43,14 +42,14 @@ int main(int argc, char ** argv)
   return 0;
 }
 ```
-</details>
+<!-- </details> -->
 
 ### (*) Exercise 2
 Check a proof of the unsatisfiability of the conjunction of the two
 assertions `a ∧ ¬b` and `¬a ∧ b`.
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -88,7 +87,7 @@ int main(int argc, char ** argv)
   return 0;
 }
 ```
-</details>
+<!-- </details> -->
 
 ### (*) Exercise 3
 Read the documentation about [disjunctive
@@ -99,8 +98,8 @@ rule](doc/capi/group__certif.html#gab8056b691f59ebb7bebeff31fb8f267e).
 Check a proof of the unsatisfiability of the conjunction of the two
 assertions `a ∧ ¬b` and `¬a ∨ b`.
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -142,7 +141,7 @@ int main(int argc, char ** argv)
   return 0;
 }
 ```
-</details>
+<!-- </details> -->
 
 ### (**) Exercise 4
 Read [the Wikipedia page of the pigeonhole
@@ -150,34 +149,34 @@ principle](https://en.wikipedia.org/wiki/Pigeonhole_principle). State
 the principle for 1 hole and 2 pigeons, and prove that it is
 unsatisfiable.
 
-<details>
-<summary>Tip 1</summary>
+<!-- <details> -->
+<!-- <summary>Tip 1</summary> -->
 One can use 2 Boolean variables: `xi` represents the fact that pigeon
 `i` is in the hole.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 2</summary>
+<!-- <details> -->
+<!-- <summary>Tip 2</summary> -->
 There are two conditions:
 1. every pigeon must be in the hole
 2. the hole cannot contain two pigeons
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 3</summary>
+<!-- <details> -->
+<!-- <summary>Tip 3</summary> -->
 The two conditions can be translated as:
 1. `x1` and `x2` are `true`
 2. `¬x1 ∨ ¬x2` is true
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 4</summary>
+<!-- <details> -->
+<!-- <summary>Tip 4</summary> -->
 The proof consists in destroying the disjunction in condition 2, then
 resolving with the two conditions 1.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -217,42 +216,42 @@ int main(int argc, char ** argv)
   return 0;
 }
 ```
-</details>
+<!-- </details> -->
 
 ### (***) Exercise 5
 State the pigeonhole principle for 2 holes and 3 pigeons, and prove that
 it is unsatisfiable.
 
-<details>
-<summary>Tip 1</summary>
+<!-- <details> -->
+<!-- <summary>Tip 1</summary> -->
 Again, one can use 6 Boolean variables: `xij` represents the fact that
 pigeon `i` is in hole `j`. The conditions are similar to Exercise 4.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 2</summary>
+<!-- <details> -->
+<!-- <summary>Tip 2</summary> -->
 First prove that pigeon 1 is in hole 1.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 3</summary>
+<!-- <details> -->
+<!-- <summary>Tip 3</summary> -->
 Then deduce that pigeon 2 cannot be in hole 1, and that pigeon 3 cannot
 be in hole 1.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 4</summary>
+<!-- <details> -->
+<!-- <summary>Tip 4</summary> -->
 Then deduce that pigeon 2 must be in hole 2, and that pigeon 3 must also
 be in hole 2. Conclude.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Tip 5</summary>
+<!-- <details> -->
+<!-- <summary>Tip 5</summary> -->
 Do not forget to break `or`s first.
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -349,8 +348,9 @@ int main(int argc, char ** argv)
 
   assert(check_proof(proof));
   return 0;
-}```
-</details>
+}
+```
+<!-- </details> -->
 
 ## Equality
 The theory of equality adds the `=` symbol and states that it is
@@ -415,8 +415,8 @@ Given an uninterpreted sort `U`, a variable `a` of type `U`, and a
 function symbol `f : U → U`, prove that the conjunction of `x = f(x)`
 and `¬(f(f(x)) = x)` is unsatisfiable.
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -463,7 +463,7 @@ int main(int argc, char ** argv)
   return 0;
 }
 ```
-</details>
+<!-- </details> -->
 
 ### Other rules for equality
 Read the documentation about the rules of
@@ -484,7 +484,7 @@ solver called Micromega, designed and implemented by Frédéric Besson.
 Thus, there is a single rule for this theory:
 [lia_generic](doc/capi/group__certif.html#ga438b36ae6d1fa0056aec06c5b4c5d85b).
 
-> [!NOTE]
+> Note:
 > The literals in the clause given to `lia_generic` must belong to the
 > theory of linear integer arithmetic only.
 
@@ -493,15 +493,15 @@ Given a function symbol `f` of type `Int → Int`, and two variable `x`
 and `y` of type `Int`, prove that the conjunction of `y = x+1` and
 `¬(f(x) = f(y-1))` is unsatisfiable.
 
-<details>
-<summary>Tip</summary>
+<!-- <details> -->
+<!-- <summary>Tip</summary> -->
 Remember that the sort `"Int`" is interpreted and can be defined using
 `sort("Int")`, as presented in [the documentation about
 sorts](doc/capi/group__sort.html).
-</details>
+<!-- </details> -->
 
-<details>
-<summary>Solution</summary>
+<!-- <details> -->
+<!-- <summary>Solution</summary> -->
 ```c
 int main(int argc, char ** argv)
 {
@@ -549,4 +549,4 @@ int main(int argc, char ** argv)
   return 0;
 }
 ```
-</details>
+<!-- </details> -->
