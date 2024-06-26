@@ -14,9 +14,17 @@ The simplest way to having the API directly installed on the machine is
 to use [opam](https://opam.ocaml.org). It has been tested only under
 Linux, but opam is also available for MacOS and Windows.
 
-Otherwise, we propose a docker and a VirtualBox images.
+We also propose docker and VirtualBox images.
+
+In doubt, the simplest is to use
+[VirtualBox](https://www.virtualbox.org).
 
 ### With opam
+If it is your first use of opam, run:
+```bash
+opam init
+```
+
 Create a new switch with OCaml-4.09.1:
 ```bash
 opam switch create smtcoqcapi 4.09.1
@@ -46,15 +54,35 @@ It generates a file `prog` which can be run with the command `./prog`.
 ### With docker
 Pull the docker image `smtcoq/smtcoq-capi:latest`.
 
+You can run the image by doing:
+```bash
+docker run -it smtcoq/smtcoq-capi:latest
+```
+You can also bind a local directory `/path/to/local/dir` with the command:
+```bash
+docker run -w /home/coq/dir -v "/path/to/local/dir:/home/coq/dir" -it smtcoq/smtcoq-capi:latest
+```
+
 To compile a C program `main.c` that uses the API in this docker image,
-run the following commands:
+run the following command:
 ```bash
 cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
 ```
 It generates a file `prog` which can be run with the command `./prog`.
 
 ### With VirtualBox
-Under progress
+You can download an image with everything installed
+[here](https://cloud.lmf.cnrs.fr/index.php/s/WiqcAqYqE2bW6gq). Simply
+import it (File → Import) and run it with VirtualBox. There is a user
+account with login and password `user`, and the root account has
+password `root`.
+
+To compile a C program `main.c` that uses the API in this virtual
+machine, opam a terminal and run the following command:
+```bash
+cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
+```
+It generates a file `prog` which can be run with the command `./prog`.
 
 ## Questions and bug report
 If you have any question or remark, you are invited to join the
