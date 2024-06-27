@@ -47,7 +47,7 @@ opam install -y ./coq-smtcoq-extrapi.opam
 To compile a C program `main.c` that uses the API, run the following commands:
 ```bash
 eval $(opam env --switch=smtcoqcapi)
-cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
+cc -o prog -I `ocamlc -where` -I `ocamlc -where`/../smtcoq -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
 ```
 It generates a file `prog` which can be run with the command `./prog`.
 
@@ -66,7 +66,7 @@ docker run -w /home/coq/dir -v "/path/to/local/dir:/home/coq/dir" -it smtcoq/smt
 To compile a C program `main.c` that uses the API in this docker image,
 run the following command:
 ```bash
-cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
+cc -o prog -I `ocamlc -where` -I `ocamlc -where`/../smtcoq -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
 ```
 It generates a file `prog` which can be run with the command `./prog`.
 
@@ -80,7 +80,7 @@ password `root`.
 To compile a C program `main.c` that uses the API in this virtual
 machine, opam a terminal and run the following command:
 ```bash
-cc -o prog -I `ocamlc -where` -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
+cc -o prog -I `ocamlc -where` -I `ocamlc -where`/../smtcoq -L `ocamlc -where` -L `ocamlc -where`/../zarith -L `ocamlc -where`/../coq-core/perf -L `ocamlc -where`/../coq-core/vm -L `ocamlc -where`/../smtcoq main.c -lsmtcoqapi -lm -lunix -lthreads -lnums -lcamlstr -lzarith -lgmp -lcoqperf_stubs -lcoqrun_stubs -lpthread -ldl
 ```
 It generates a file `prog` which can be run with the command `./prog`.
 
