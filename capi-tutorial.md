@@ -490,8 +490,9 @@ Thus, there is a single rule for this theory:
 [lia_generic](doc/capi/group__certif.html#ga438b36ae6d1fa0056aec06c5b4c5d85b).
 
 > Note:
-> The literals in the clause given to `lia_generic` must belong to the
-> theory of linear integer arithmetic only.
+> The literals in the clause given to `lia_generic` may belong to
+> multiple theories, but the proof that it is a tautology must use only
+> linear integer arithmetic reasoning.
 
 ### (**) Exercise 8
 Given a function symbol `f` of type `Int → Int`, and two variable `x`
