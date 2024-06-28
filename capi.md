@@ -14,6 +14,10 @@ The simplest way to having the API directly installed on the machine is
 to use [opam](https://opam.ocaml.org). It has been tested only under
 Linux, but opam is also available for MacOS and Windows.
 
+> Warning:
+> For MacOS, the default C compiler may be clang; you should set gcc as
+> the default instead.
+
 We also propose docker and VirtualBox images.
 
 In doubt, the simplest is to use
