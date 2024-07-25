@@ -70,7 +70,7 @@ End Group.
 
 A project called [Sniper](https://smtcoq.github.io/sniper) is currently developed 
 to extend the number of `Coq` goals that SMTCoq is able to handle.
-It is based on small, compositionnal and certifying pre-processing transformations,
+It is based on small, compositional and certifying pre-processing transformations,
 combined together to translate some `Coq` goals into the logic handled by SMTCoq, 
 the first-order logic. Have a look at the website !
 
