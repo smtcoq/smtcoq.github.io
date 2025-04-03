@@ -95,7 +95,7 @@ forum](https://framateam.org/smtcoq) to discuss!
 * [Laurent Théry](https://www-sop.inria.fr/marelle/Laurent.Thery/moi.html) (Inria Sophia Antipolis)
 * [Cesare Tinelli](http://homepage.cs.uiowa.edu/~tinelli) (The University of Iowa)
 * [Pierre Vial](https://pierrevial.github.io) (Inria Saclay - Île-de-France)
-* [Arjun Viswanathan](http://homepage.divms.uiowa.edu/~viswanathn) (The University of Iowa)
+* [Arjun Viswanathan](https://cs.union.edu/~viswanaa/) (Union College)
 
 ### Past contributors
 * Mikaël Armand (Inria Sophia Antipolis)
@@ -111,10 +111,12 @@ forum](https://framateam.org/smtcoq) to discuss!
 [A Modular Integration of SAT/SMT Solvers to Coq through Proof Witnesses](http://hal.inria.fr/docs/00/63/91/30/PDF/cpp11.pdf), Armand, Michaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Thery, Laurent; Werner, Benjamin, [CPP - Certified Programs and Proofs - First International Conference - 2011](http://formes.asia/cpp).
 
 ### Other publications
-1. [SMTCoq: A plug-in for integrating SMT solvers into Coq (Tool Paper)](http://homepage.divms.uiowa.edu/~tinelli/papers/EkiEtAl-CAV-17.pdf), Ekici, Burak; Mebsout, Alain; Tinelli, Cesare; Keller, Chantal; Katz, Guy; Reynolds, Andrew; Barrett, Clark, [CAV - International Conference on Computer Aided Verification](http://cavconference.org/2017) - 2017.
-2. [Extending SMTCoq, a Certified Checker for SMT (Extended Abstract)](https://hal.inria.fr/hal-01388984/document), Ekici, Burak; Katz, Guy; Keller, Chantal; Mebsout, Alain; Reynolds, Andrew; Tinelli, Cesare, [HaTT - on Hammers for Type Theories - First International Workshop](https://hatt2016.inria.fr) - 2016.
-3. [Verifying SAT and SMT in Coq for a fully automated decision procedure](http://hal.inria.fr/docs/00/61/40/41/PDF/ArmandAl.pdf), Armand, Mickaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Théry, Laurent; Werner, Benjamin, [PSATTT - International Workshop on Proof-Search in Axiomatic Theories and Type Theories](http://www.lix.polytechnique.fr/~lengrand/Events/PSATTT11) - 2011.
-4. [SMTCoq : automatisation expressive et extensible dans Coq](https://hal.archives-ouvertes.fr/hal-02369249), Blot, Valentin; Bousalem, Amina; Garchery, Quentin; Keller, Chantal, [JFLA - Journées Francophones des Langages Applicatifs](http://dpt-info.u-strasbg.fr/~magaud/JFLA2019) - 2019.
+1. [Formal Verification of Bit-Vector invertibility Conditions in Coq](https://link.springer.com/chapter/10.1007/978-3-031-43369-6_3), Eikici, Burak; Viswanathan, Arjun; Zohar, Yoni; Tinelli, Cesare; Barrett, Clark, [Frontiers of Combining Systems](https://frocos.cs.uiowa.edu/index.shtml) - 2023.
+2. [An Interactive SMT Tactic in Coq using Abductive Reasoning](https://cs.union.edu/~viswanaa/lpar2023.pdf), Barbosa, Haniel; Keller, Chantal; Reynolds, Andrew; Viswanathan, Arjun; Tinelli, Cesare; Barrett, Clark, [EPiC Series in Computing](https://easychair.org/publications/EPiC/Computing) - 2023
+3. [SMTCoq: A plug-in for integrating SMT solvers into Coq (Tool Paper)](http://homepage.divms.uiowa.edu/~tinelli/papers/EkiEtAl-CAV-17.pdf), Ekici, Burak; Mebsout, Alain; Tinelli, Cesare; Keller, Chantal; Katz, Guy; Reynolds, Andrew; Barrett, Clark, [CAV - International Conference on Computer Aided Verification](http://cavconference.org/2017) - 2017.
+4. [Extending SMTCoq, a Certified Checker for SMT (Extended Abstract)](https://hal.inria.fr/hal-01388984/document), Ekici, Burak; Katz, Guy; Keller, Chantal; Mebsout, Alain; Reynolds, Andrew; Tinelli, Cesare, [HaTT - on Hammers for Type Theories - First International Workshop](https://hatt2016.inria.fr) - 2016.
+5. [Verifying SAT and SMT in Coq for a fully automated decision procedure](http://hal.inria.fr/docs/00/61/40/41/PDF/ArmandAl.pdf), Armand, Mickaël; Faure, Germain; Grégoire, Benjamin; Keller, Chantal; Théry, Laurent; Werner, Benjamin, [PSATTT - International Workshop on Proof-Search in Axiomatic Theories and Type Theories](http://www.lix.polytechnique.fr/~lengrand/Events/PSATTT11) - 2011.
+6. [SMTCoq : automatisation expressive et extensible dans Coq](https://hal.archives-ouvertes.fr/hal-02369249), Blot, Valentin; Bousalem, Amina; Garchery, Quentin; Keller, Chantal, [JFLA - Journées Francophones des Langages Applicatifs](http://dpt-info.u-strasbg.fr/~magaud/JFLA2019) - 2019.
 
 
 ## Talk
